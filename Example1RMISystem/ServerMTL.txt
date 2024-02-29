@@ -1,0 +1,198 @@
+Add Availiable Appointment:MTLA240324 Appointment Type:PHYSICIAN Capacity:10 
+List Availiable Appointment Type:PHYSICIAN 
+Book Appointment:MTLA240324 Appointment Type:PHYSICIAN patient:MTLP0001 
+Get Appointment Schedule of patient:MTLP0001 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+Add Availiable Appointment:MTLA010124 Appointment Type:PHYSICIAN Capacity:10 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+Book Appointment:MTLA010124 Appointment Type:PHYSICIAN patient:MTLP0000 
+Get Appointment Schedule of patient:MTLP0000 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:17:29 11.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:29 11.1.2024 
+Appointment ID:MTLM010124  Capacity:10 operation time:17:29 11.1.2024 
+List Availiable Appointment Type:SURGEON Res:true operation time:17:29 11.1.2024 
+List Availiable Appointment Type:DENTAL Res:true operation time:17:29 11.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:17:29 11.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:17:29 11.1.2024 
+Appointment ID:MTLM010124 Appointment Type:PHYSICIAN operation time:17:29 11.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:10 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:0:13 12.1.2024 
+Remove Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Result:true operation time:0:13 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:0:13 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0001 Res:true operation time:0:14 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0002 Res:true operation time:0:18 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:0:23 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:0:23 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:12 Result:true operation time:0:25 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:0:25 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:12 Result:true operation time:0:33 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0001 Res:true operation time:0:34 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0002 Res:true operation time:0:36 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:45 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:0:45 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:48 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:0:48 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:51 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:0:51 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:54 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:0:54 12.1.2024 
+Cancel Appointment:MTLM010124 patient:MTLP0000 Res:true operation time:0:54 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:57 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:0:58 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0001 Res:true operation time:0:59 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:13 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:1:13 12.1.2024 
+Add Availiable Appointment:Choose Your CityM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:31 12.1.2024 
+Book Appointment:QUEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:1:35 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:1:36 12.1.2024 
+Appointment ID:QUEM010124 Appointment Type:PHYSICIAN operation time:1:36 12.1.2024 
+Remote Process Cancel Appointment:QUEM010124 patient:MTLP0000 Res:true operation time:1:36 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:1:36 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:11 Result:true operation time:1:41 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:1:42 12.1.2024 
+Add Availiable Appointment:QUEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:52 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:53 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:57 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:1:59 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:2:1 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:30 Result:true operation time:2:4 12.1.2024 
+Add Availiable Appointment:QUEM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:2:6 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:2:12 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:2:12 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=20} operation time:2:12 12.1.2024 
+Add Availiable Appointment:QUEM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:2:12 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:2:12 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:12 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:12 12.1.2024 
+Add Availiable Appointment:QUEM010124 Appointment Type:SURGEON Capacity:20 Result:true operation time:2:12 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:2:12 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:12 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:12 12.1.2024 
+Appointment:SURGEON:QUEM010124  Capacity:{QUEM010124=20} operation time:2:12 12.1.2024 
+Get Appointment Schedule of patient:MTLA0002 Res:true operation time:2:25 12.1.2024 
+Get Appointment Schedule of patient:MTLA0003 Res:true operation time:2:32 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:2:32 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:32 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:32 12.1.2024 
+Appointment:SURGEON:QUEM010124  Capacity:{QUEM010124=20} operation time:2:32 12.1.2024 
+Get Appointment Schedule of patient:MTLA0003 Res:true operation time:2:32 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:2:32 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:32 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{QUEM010124=20, MTLM010124=20} operation time:2:32 12.1.2024 
+Appointment:SURGEON:QUEM010124  Capacity:{QUEM010124=20} operation time:2:32 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient: Res:true operation time:2:33 12.1.2024 
+Get Appointment Schedule of patient:MTLA0003 Res:true operation time:2:33 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient: Res:true operation time:2:33 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient: Res:true operation time:2:34 12.1.2024 
+Get Appointment Schedule of patient:MTLA0003 Res:true operation time:2:34 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:2:34 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=20, MTLM010124=17} operation time:2:34 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{QUEM010124=20, MTLM010124=17} operation time:2:34 12.1.2024 
+Appointment:SURGEON:QUEM010124  Capacity:{QUEM010124=20} operation time:2:34 12.1.2024 
+Get Appointment Schedule of patient:MTLA0003 Res:true operation time:2:34 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:20 Result:true operation time:3:42 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:3:42 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=20} operation time:3:42 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:SURGEON Capacity:20 Result:true operation time:3:42 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:3:42 12.1.2024 
+Appointment:SURGEON:MTLM010124  Capacity:{MTLM010124=20} operation time:3:42 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=20} operation time:3:42 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:3:43 12.1.2024 
+Appointment:SURGEON:MTLM010124  Capacity:{MTLM010124=20} operation time:3:43 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=20} operation time:3:43 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:QUEP0000 Res:true operation time:3:43 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:3:44 12.1.2024 
+Appointment:SURGEON:MTLM010124  Capacity:{MTLM010124=20} operation time:3:44 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=19} operation time:3:44 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:3:44 12.1.2024 
+Appointment:SURGEON:MTLM010124  Capacity:{MTLM010124=20} operation time:3:44 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=19} operation time:3:44 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:17:45 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:45 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=10} operation time:17:45 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:45 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=10} operation time:17:45 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:QUEP0000 Res:true operation time:17:45 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:46 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=9} operation time:17:46 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:48 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=9} operation time:17:48 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:3 Result:true operation time:17:50 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:50 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=3} operation time:17:50 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:QUEP0000 Res:true operation time:17:51 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0001 Res:true operation time:17:51 12.1.2024 
+Get Appointment Schedule of patient:MTLP0001 Res:true operation time:17:51 12.1.2024 
+Appointment ID:MTLM010124 Appointment Type:PHYSICIAN operation time:17:51 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:51 12.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=1} operation time:17:51 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:17:57 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:false operation time:17:57 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:17:57 12.1.2024 
+Appointment ID:SHEM010124 Appointment Type:PHYSICIAN operation time:17:57 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:17:57 12.1.2024 
+Appointment ID:SHEM010124 Appointment Type:PHYSICIAN operation time:17:57 12.1.2024 
+Remote Process Cancel Appointment:SHEM010124 patient:MTLP0000 Res:true operation time:17:58 12.1.2024 
+Remote Process Cancel Appointment:SHEM010124 patient:MTLP0000 Res:false operation time:17:58 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:17:58 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:17:58 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:19:34 12.1.2024 
+Book Appointment:QUEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:false operation time:19:35 12.1.2024 
+Book Appointment:QUEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:false operation time:19:35 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:19:35 12.1.2024 
+Book Appointment:QUEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:false operation time:19:35 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:19:35 12.1.2024 
+Book Appointment:QUEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:19:37 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:19:37 12.1.2024 
+Appointment ID:QUEM010124 Appointment Type:PHYSICIAN operation time:19:37 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:19:37 12.1.2024 
+Appointment ID:QUEM010124 Appointment Type:PHYSICIAN operation time:19:37 12.1.2024 
+Remote Process Cancel Appointment:QUEM010124 patient:MTLP0000 Res:true operation time:19:38 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:19:38 12.1.2024 
+Book Appointment:QUEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:21:41 12.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:21:42 12.1.2024 
+Appointment ID:QUEM010124 Appointment Type:PHYSICIAN operation time:21:42 12.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:21:53 19.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:21:53 19.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=10} operation time:21:53 19.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:21:53 19.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:21:54 19.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:21:54 19.1.2024 
+Get Appointment Schedule of patient:MTLP0000 Res:true operation time:21:54 19.1.2024 
+Appointment ID:MTLM010124 Appointment Type:PHYSICIAN operation time:21:54 19.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:21:54 19.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=9} operation time:21:54 19.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:21:55 19.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=9} operation time:21:55 19.1.2024 
+Add Availiable Appointment:MTLM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:23:14 21.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:23:14 21.1.2024 
+Appointment:PHYSICIAN:MTLM010124  Capacity:{MTLM010124=10} operation time:23:14 21.1.2024 

@@ -1,0 +1,76 @@
+Add Availiable Appointment:SHEM010826 Appointment Type:SURGEON Capacity:30 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:PHYSICIAN 
+Add Availiable Appointment:SHEE050724 Appointment Type:PHYSICIAN Capacity:10 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN 
+List Availiable Appointment Type:SURGEON 
+List Availiable Appointment Type:DENTAL 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:29 11.1.2024 
+List Availiable Appointment Type:SURGEON Res:true operation time:17:29 11.1.2024 
+List Availiable Appointment Type:DENTAL Res:true operation time:17:29 11.1.2024 
+Add Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:16 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:SHEP0000 Res:true operation time:1:16 12.1.2024 
+Add Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:18 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:SHEP0001 Res:true operation time:1:18 12.1.2024 
+Add Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:20 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:SHEP0000 Res:true operation time:1:20 12.1.2024 
+Add Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:25 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:SHEP0001 Res:true operation time:1:25 12.1.2024 
+Add Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:1:27 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:SHEP0000 Res:true operation time:1:27 12.1.2024 
+Get Appointment Schedule of patient:SHEP0000 Res:true operation time:1:27 12.1.2024 
+Appointment ID:SHEM010124 Appointment Type:PHYSICIAN operation time:1:27 12.1.2024 
+Get Appointment Schedule of patient:SHEP0000 Res:true operation time:1:28 12.1.2024 
+Appointment ID:SHEM010124 Appointment Type:PHYSICIAN operation time:1:28 12.1.2024 
+Get Appointment Schedule of patient:SHEP0000 Res:true operation time:1:28 12.1.2024 
+Appointment ID:SHEM010124 Appointment Type:PHYSICIAN operation time:1:28 12.1.2024 
+Cancel Appointment:SHEM010124 patient:SHEP0000 Res:true operation time:1:28 12.1.2024 
+Get Appointment Schedule of patient:SHEP0000 Res:true operation time:1:28 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:SHEP0000 Res:false operation time:1:32 12.1.2024 
+Get Appointment Schedule of patient:SHEP0000 Res:true operation time:1:33 12.1.2024 
+Book Appointment:MTLM010124 Appointment Type:PHYSICIAN patient:SHEP0000 Res:false operation time:1:33 12.1.2024 
+Add Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Capacity:1 Result:true operation time:17:57 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:57 12.1.2024 
+Appointment:PHYSICIAN:SHEM010124  Capacity:{SHEM010124=1} operation time:17:57 12.1.2024 
+Book Appointment:SHEM010124 Appointment Type:PHYSICIAN patient:MTLP0000 Res:true operation time:17:57 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:57 12.1.2024 
+Cancel Appointment:SHEM010124 patient:MTLP0000 Res:true operation time:17:58 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:58 12.1.2024 
+Appointment:PHYSICIAN:SHEM010124  Capacity:{SHEM010124=1} operation time:17:58 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:58 12.1.2024 
+Appointment:PHYSICIAN:SHEM010124  Capacity:{SHEM010124=1} operation time:17:58 12.1.2024 
+Remove Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Result:true operation time:17:58 12.1.2024 
+Remove Availiable Appointment:SHEM010124 Appointment Type:PHYSICIAN Result:true operation time:17:58 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:17:58 12.1.2024 
+Add Availiable Appointment:QUEM010124 Appointment Type:PHYSICIAN Capacity:10 Result:true operation time:19:35 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:19:35 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=10} operation time:19:35 12.1.2024 
+List Availiable Appointment Type:PHYSICIAN Res:true operation time:19:35 12.1.2024 
+Appointment:PHYSICIAN:QUEM010124  Capacity:{QUEM010124=10} operation time:19:35 12.1.2024 

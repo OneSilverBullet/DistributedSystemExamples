@@ -1,0 +1,2 @@
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:12  Res:true  Time:0:40 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:3 12.1.2024 

@@ -1,0 +1,11 @@
+Book Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Res:true  Time:1:16 12.1.2024 
+Book Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Res:true  Time:1:20 12.1.2024 
+Book Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Res:true  Time:1:27 12.1.2024 
+View Booked Appointment Operation ID  Time:1:27 12.1.2024 
+View Booked Appointment Operation ID  Time:1:28 12.1.2024 
+View Booked Appointment Operation ID  Time:1:28 12.1.2024 
+Cancel Appointment Operation ID:SHEM010124 Res:true  Time:1:28 12.1.2024 
+View Booked Appointment Operation ID  Time:1:28 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:1:32 12.1.2024 
+View Booked Appointment Operation ID  Time:1:33 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:1:33 12.1.2024 

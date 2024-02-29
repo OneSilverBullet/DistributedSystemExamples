@@ -1,0 +1,8 @@
+Add Appointment Operation ID:QUEA010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:23:35 11.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:35 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:39 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:19:37 12.1.2024 
+View Available Appointments  Time:19:37 12.1.2024 
+View Available Appointments  Time:19:37 12.1.2024 
+View Available Appointments  Time:19:38 12.1.2024 
+View Available Appointments  Time:21:42 12.1.2024 

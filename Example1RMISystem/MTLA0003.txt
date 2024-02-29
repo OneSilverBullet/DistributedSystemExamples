@@ -1,0 +1,12 @@
+View Booked Appointment Operation ID  Time:2:32 12.1.2024 
+View Available Appointments  Time:2:32 12.1.2024 
+View Booked Appointment Operation ID  Time:2:32 12.1.2024 
+View Available Appointments  Time:2:32 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:2:33 12.1.2024 
+View Booked Appointment Operation ID  Time:2:33 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:2:33 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:SURGEON Res:false  Time:2:33 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:2:34 12.1.2024 
+View Booked Appointment Operation ID  Time:2:34 12.1.2024 
+View Available Appointments  Time:2:34 12.1.2024 
+View Booked Appointment Operation ID  Time:2:34 12.1.2024 

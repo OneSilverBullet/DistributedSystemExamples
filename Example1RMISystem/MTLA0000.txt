@@ -1,0 +1,39 @@
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:0:10 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:0:13 12.1.2024 
+Remove Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN  Res:true  Time:0:13 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:0:13 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:12  Res:true  Time:0:33 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:0:57 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:0:58 12.1.2024 
+Add Appointment Operation ID:Choose Your CityM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:31 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:11  Res:true  Time:1:41 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:1:42 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:52 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:53 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:57 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:1:59 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:2:1 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:30  Res:true  Time:2:4 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:2:6 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:2:12 12.1.2024 
+View Available Appointments  Time:2:12 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:2:12 12.1.2024 
+View Available Appointments  Time:2:12 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:SURGEON Capacity:20  Res:true  Time:2:12 12.1.2024 
+View Available Appointments  Time:2:12 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:20  Res:true  Time:3:42 12.1.2024 
+View Available Appointments  Time:3:42 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:SURGEON Capacity:20  Res:true  Time:3:42 12.1.2024 
+View Available Appointments  Time:3:42 12.1.2024 
+View Available Appointments  Time:3:43 12.1.2024 
+View Available Appointments  Time:3:44 12.1.2024 
+View Available Appointments  Time:3:44 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:17:45 12.1.2024 
+View Available Appointments  Time:17:45 12.1.2024 
+View Available Appointments  Time:17:45 12.1.2024 
+View Available Appointments  Time:17:46 12.1.2024 
+View Available Appointments  Time:17:48 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:3  Res:true  Time:17:50 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:3  Res:false  Time:17:50 12.1.2024 
+View Available Appointments  Time:17:50 12.1.2024 
+View Available Appointments  Time:17:51 12.1.2024 

@@ -1,0 +1,39 @@
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:17:29 11.1.2024 
+View Booked Appointment Operation ID  Time:17:29 11.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:23 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:25 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:45 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:48 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:51 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:54 12.1.2024 
+Cancel Appointment Operation ID:MTLM010124 Res:true  Time:0:54 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:1:13 12.1.2024 
+Book Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Res:true  Time:1:35 12.1.2024 
+View Booked Appointment Operation ID  Time:1:36 12.1.2024 
+Cancel Appointment Operation ID:QUEM010124 Res:true  Time:1:36 12.1.2024 
+View Booked Appointment Operation ID  Time:1:36 12.1.2024 
+Book Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Res:true  Time:17:57 12.1.2024 
+Book Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Res:false  Time:17:57 12.1.2024 
+View Booked Appointment Operation ID  Time:17:57 12.1.2024 
+View Booked Appointment Operation ID  Time:17:57 12.1.2024 
+Cancel Appointment Operation ID:SHEM010124 Res:true  Time:17:58 12.1.2024 
+Cancel Appointment Operation ID:SHEM010124 Res:true  Time:17:58 12.1.2024 
+View Booked Appointment Operation ID  Time:17:58 12.1.2024 
+View Booked Appointment Operation ID  Time:17:58 12.1.2024 
+View Booked Appointment Operation ID  Time:19:34 12.1.2024 
+Book Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Res:false  Time:19:35 12.1.2024 
+Book Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Res:false  Time:19:35 12.1.2024 
+View Booked Appointment Operation ID  Time:19:35 12.1.2024 
+Book Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Res:false  Time:19:35 12.1.2024 
+View Booked Appointment Operation ID  Time:19:35 12.1.2024 
+Book Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Res:true  Time:19:37 12.1.2024 
+View Booked Appointment Operation ID  Time:19:37 12.1.2024 
+View Booked Appointment Operation ID  Time:19:37 12.1.2024 
+Cancel Appointment Operation ID:QUEM010124 Res:true  Time:19:38 12.1.2024 
+View Booked Appointment Operation ID  Time:19:38 12.1.2024 
+Book Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Res:true  Time:21:41 12.1.2024 
+View Booked Appointment Operation ID  Time:21:42 12.1.2024 
+View Booked Appointment Operation ID  Time:21:53 19.1.2024 
+View Booked Appointment Operation ID  Time:21:54 19.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:21:54 19.1.2024 
+View Booked Appointment Operation ID  Time:21:54 19.1.2024 

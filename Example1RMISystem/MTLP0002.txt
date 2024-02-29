@@ -1,0 +1,3 @@
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:18 12.1.2024 
+Book Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Res:true  Time:0:36 12.1.2024 
+Cancel Appointment Operation ID:MTLM010124 Res:false  Time:0:37 12.1.2024 

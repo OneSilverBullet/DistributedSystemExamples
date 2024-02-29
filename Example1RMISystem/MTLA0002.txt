@@ -1,0 +1,6 @@
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:0:48 12.1.2024 
+View Booked Appointment Operation ID  Time:2:25 12.1.2024 
+Add Appointment Operation ID:MTLM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:21:53 19.1.2024 
+View Available Appointments  Time:21:53 19.1.2024 
+View Available Appointments  Time:21:54 19.1.2024 
+View Available Appointments  Time:21:55 19.1.2024 

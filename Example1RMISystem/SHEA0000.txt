@@ -1,0 +1,14 @@
+Add Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:18 12.1.2024 
+Add Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:1:25 12.1.2024 
+Add Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Capacity:1  Res:true  Time:17:57 12.1.2024 
+Add Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN Capacity:1  Res:false  Time:17:57 12.1.2024 
+View Available Appointments  Time:17:57 12.1.2024 
+View Available Appointments  Time:17:57 12.1.2024 
+View Available Appointments  Time:17:58 12.1.2024 
+View Available Appointments  Time:17:58 12.1.2024 
+Remove Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN  Res:true  Time:17:58 12.1.2024 
+Remove Appointment Operation ID:SHEM010124 appointment Type:PHYSICIAN  Res:true  Time:17:58 12.1.2024 
+View Available Appointments  Time:17:58 12.1.2024 
+Add Appointment Operation ID:QUEM010124 appointment Type:PHYSICIAN Capacity:10  Res:true  Time:19:35 12.1.2024 
+View Available Appointments  Time:19:35 12.1.2024 
+View Available Appointments  Time:19:35 12.1.2024 
