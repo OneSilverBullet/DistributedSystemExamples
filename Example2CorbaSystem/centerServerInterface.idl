@@ -1,0 +1,23 @@
+module centerObj{
+
+	interface centerInterface {
+		void message();
+
+		string RegisterUser(in short cityType, in short userType);
+
+		boolean CheckUser(in short city, in string userID);
+
+		boolean BookAppointment(in short city, in string userID, in string appointmentID, in short appointmentType);
+
+		boolean CancelAppointment(in short city, in string userID, in string appointmentID);
+
+		string GetAppointmentSchedule(in short city, in string userID);
+
+		boolean AddAppointment(in short cityType, in string appointmentID, in short appointmentType, in short capacity);
+
+		boolean RemoveAppointment(in short cityType, in string appointmentID, in short appointmentType);
+
+		string ListAppointmentAvailability(in short cityType, in short appointmentType);
+
+	};
+};

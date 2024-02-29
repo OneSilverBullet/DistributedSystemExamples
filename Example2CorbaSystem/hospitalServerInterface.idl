@@ -1,0 +1,25 @@
+module hospitalObj{
+	interface hospitalInterface {
+		void message();
+
+	    boolean AddAppointment(in string appointmentID, in short appointmentType,
+	            in short capacity);
+
+	    boolean RemoveAppointment(in string appointmentID, in short appointmentType);
+
+	    string ListAppointmentAvailability(in short AppointmentType);
+
+        boolean BookAppointment(in string patientID, in string appointmentID,
+                in short appointmentType);
+
+        string GetAppointmentSchedule(in string patientID);
+
+        string GetAppointmentScheduleLocal(in string patientID);
+
+        boolean CancelAppointment(in string patientID, in string appointmentID);
+
+        boolean CheckUser(in string userID);
+
+        string RegisterUser(in short cityType, in short userType);
+	};
+};
