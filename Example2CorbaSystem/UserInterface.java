@@ -27,6 +27,18 @@ public class UserInterface extends JFrame{
         }
     }
 
+    private static final SwapAppointmentPanel swapPanel;
+
+    static {
+        try {
+            swapPanel = new SwapAppointmentPanel();
+        } catch (NotBoundException e) {
+            throw new RuntimeException(e);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static CancelAppointmentPanel cancelPanel;
 
     static {
@@ -61,12 +73,14 @@ public class UserInterface extends JFrame{
         addPanel.setVisible(false);
         removePanel.setVisible(false);
         viewPanel.setVisible(false);
+        swapPanel.setVisible(false);
 
         add(startInterfacePanel);
         add(createUserIDInterface);
         add(patientPanel);
         add(adminPanel);
         add(bookPanel);
+        add(swapPanel);
         add(cancelPanel);
         add(addPanel);
         add(removePanel);
@@ -197,6 +211,7 @@ public class UserInterface extends JFrame{
             String operation4 = "Add Appointment";
             String operation5 = "Remove Appointment";
             String operation6 = "View Availiable Appointment";
+            String operation7 = "Swap Appointment";
 
 
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -281,15 +296,30 @@ public class UserInterface extends JFrame{
                     String[] itemArray = new String[10];
                 }
             });
+            JButton btnSwapAppointment = new JButton(operation7);
+            btnSwapAppointment.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    adminPanel.setVisible(false);
+                    patientPanel.setVisible(false);
+                    swapPanel.setVisible(true);
+                }
+            });
 
             add(labelUser);
-            add(btnBookAppointment);
-            add(btnCancelAppointment);
-            add(btnViewAppointment);
             if(panelType == "admin"){
+                add(btnBookAppointment);
+                add(btnCancelAppointment);
+                add(btnViewAppointment);
                 add(btnAddAppointment);
                 add(btnRemoveAppointment);
                 add(btnViewBookedAppointment);
+            }
+            else{
+                add(btnBookAppointment);
+                add(btnCancelAppointment);
+                add(btnViewAppointment);
+                add(btnSwapAppointment);
             }
         }
     }
@@ -444,6 +474,104 @@ public class UserInterface extends JFrame{
         }
     }
 
+    public static class SwapAppointmentPanel extends JPanel {
+        JLabel labelInfor = new JLabel(" ");
+        public SwapAppointmentPanel() throws NotBoundException, RemoteException {
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBounds(150, 0, 300, 400);
+            setLayout(new GridLayout(10, 2));
+            JLabel label1=new JLabel("Input User ID:");
+            JTextField userTxtfield=new JTextField();
+            JLabel label0=new JLabel("Choose Your City:");
+            JComboBox cmb0=new JComboBox();
+            cmb0.addItem("Choose Your City");
+            cmb0.addItem("MTL");
+            cmb0.addItem("QUE");
+            cmb0.addItem("SHE");
+            userTxtfield.setText(ClientData.getInstance().userID);
+            JLabel label2=new JLabel("Old Appointment ID:");
+            JTextField txtfield1=new JTextField();
+            JLabel label3 = new JLabel("Old Appointment Type:");
+            JComboBox cmb2=new JComboBox();
+            cmb2.addItem("PHYS");
+            cmb2.addItem("SURG");
+            cmb2.addItem("DENT");
+            JLabel label4=new JLabel("New Appointment ID:");
+            JTextField txtfield3 =new JTextField();
+            JLabel label5 = new JLabel("New Appointment Type:");
+            JComboBox cmb4=new JComboBox();
+            cmb4.addItem("PHYS");
+            cmb4.addItem("SURG");
+            cmb4.addItem("DENT");
+
+            JButton btnSubmit = new JButton("Submit");
+            btnSubmit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String cityType = cmb0.getSelectedItem().toString();
+                    String userID = userTxtfield.getText();
+                    String oldAppointmentID = txtfield1.getText();
+                    String oldAppointmentType = cmb2.getSelectedItem().toString();
+                    String newAppointmentID = txtfield3.getText();
+                    String newAppointmentType = cmb4.getSelectedItem().toString();
+                    try {
+                        short resSwapAppointment = ClientData.getInstance().SwapAppointment(cityType, userID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
+                        if(resSwapAppointment == 0){
+                            labelInfor.setText("Swap Appointment Completed!");
+                        }
+                        else if(resSwapAppointment == 1){
+                            labelInfor.setText("There is no such old appointment");
+                        }
+                        else if(resSwapAppointment == 2){
+                            labelInfor.setText("There is no such available new appointment");
+                        }
+                        else if(resSwapAppointment == 3){
+                            labelInfor.setText("There is some error in operation");
+                        }
+                    } catch (NotBoundException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            });
+            JButton btnBack = new JButton("Back");
+            btnBack.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    swapPanel.setVisible(false);
+                    try {
+                        if(ClientData.getInstance().IsPatient()){
+                            patientPanel.setVisible(true);
+                        }
+                        else{
+                            adminPanel.setVisible(true);
+                        }
+                    } catch (NotBoundException | RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            });
+
+            add(label0);
+            add(cmb0);
+            add(label1);
+            add(userTxtfield);
+            add(label2);
+            add(txtfield1);
+            add(label3);
+            add(cmb2);
+            add(label4);
+            add(txtfield3);
+            add(label5);
+            add(cmb4);
+
+            add(btnSubmit);
+            add(btnBack);
+            add(labelInfor);
+        }
+    }
+
     public static class CancelAppointmentPanel extends JPanel {
         JLabel labelInfor = new JLabel(" ");
         public CancelAppointmentPanel() throws NotBoundException, RemoteException {
@@ -505,7 +633,6 @@ public class UserInterface extends JFrame{
             add(labelInfor);
         }
     }
-
 
     public static class AddAppointmentPanel extends JPanel {
         JLabel labelInfor = new JLabel(" ");

@@ -21,5 +21,9 @@ module hospitalObj{
         boolean CheckUser(in string userID);
 
         string RegisterUser(in short cityType, in short userType);
+
+        short SwapAppointment(in string patientID, in string oldAppointmentID, in short oldAppointmentType, in string newAppointmentID, in short newAppointmentType);
+
+
 	};
 };

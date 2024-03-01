@@ -115,6 +115,13 @@ public class ClientData {
         return res;
     }
 
+    public short SwapAppointment(String cityType, String patientID, String oldAppointmentID, String oldAppointmentType, String newAppointmentID, String newAppointmentType)
+    {
+
+        return centralPlatform.SwapAppointment((short)Type.CityType.valueOf(cityType).ordinal(), patientID, oldAppointmentID, (short)Type.AppointmentType.valueOf(oldAppointmentType).ordinal(),
+                newAppointmentID, (short)Type.AppointmentType.valueOf(newAppointmentType).ordinal());
+    }
+
     public boolean CancelAppointment(String appointmentID) throws RemoteException, NotBoundException {
         boolean res = centralPlatform.CancelAppointment((short)cityType.ordinal(), userID, appointmentID);
         try{

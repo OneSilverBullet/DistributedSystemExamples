@@ -13,6 +13,8 @@ module centerObj{
 
 		string GetAppointmentSchedule(in short city, in string userID);
 
+		short SwapAppointment(in short CityType, in string patientID, in string oldAppointmentID, in short oldAppointmentType, in string newAppointmentID, in short newAppointmentType);
+
 		boolean AddAppointment(in short cityType, in string appointmentID, in short appointmentType, in short capacity);
 
 		boolean RemoveAppointment(in short cityType, in string appointmentID, in short appointmentType);

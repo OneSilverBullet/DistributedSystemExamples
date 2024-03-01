@@ -68,7 +68,6 @@ public class ServerHospitalMTL {
 
         // Start UDP server in another thread
         Thread udpThread = new Thread(() -> {
-
             try{
                 DatagramSocket aSocket = new DatagramSocket(6000);
                 byte[] buffer = new byte[1000];
@@ -76,17 +75,36 @@ public class ServerHospitalMTL {
                     DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                     aSocket.receive(request);
                     String res = new String(buffer);
-                    res = res.substring(0,1);
+                    String operationBit = res.substring(0,1);
                     System.out.println("received:" + res);
+                    String returnValue = "";
+
                     //process request
-                    if(res.equals("1")){
+                    if(operationBit.equals("1")){
                         System.out.println("get 1!");
-                        String marshallingInfor = HospitalServer.getInstance().MarshallingAppointmentAvaliableLocal();
-                        System.out.println("Sent Data:" + marshallingInfor);
-                        DatagramPacket reply = new DatagramPacket(marshallingInfor.getBytes(), marshallingInfor.length(),
-                                request.getAddress(), request.getPort());
-                        aSocket.send(reply);
+                        returnValue = HospitalServer.getInstance().MarshallingAppointmentAvaliableLocal();
                     }
+                    else if(operationBit.equals("2")){ //CheckAppointmentAvailableUDP
+                        System.out.println("get 2!");
+                        returnValue = String.valueOf(HospitalServer.getInstance().CheckAppointmentAvailableLocal(res));
+                    }
+                    else if(operationBit.equals("3")){ //CheckAppointmentExistUDP
+                        System.out.println("get 3!");
+                        returnValue = String.valueOf(HospitalServer.getInstance().CheckAppointmentBookedLocal(res));
+                    }
+                    else if(operationBit.equals("4")){ //BookAppointmentUDP
+                        System.out.println("get 4!");
+                        returnValue = String.valueOf(HospitalServer.getInstance().BookAppointmentUDPProcess(res));
+                    }
+                    else if(operationBit.equals("5")){ //CancelAppointmentUDP
+                        System.out.println("get 5!");
+                        returnValue = String.valueOf(HospitalServer.getInstance().CancelAppointmentUDPProcess(res));
+                    }
+
+                    System.out.println("Sent Data:" + returnValue);
+                    DatagramPacket reply = new DatagramPacket(returnValue.getBytes(), returnValue.length(),
+                            request.getAddress(), request.getPort());
+                    aSocket.send(reply);
                 }
             }
             catch (Exception e) {

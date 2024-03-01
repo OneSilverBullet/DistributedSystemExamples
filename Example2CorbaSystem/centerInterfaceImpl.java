@@ -67,6 +67,16 @@ public class centerInterfaceImpl extends centerInterfacePOA {
     }
 
     @Override
+    public short SwapAppointment(short cityType, String patientID, String oldAppointmentID, short oldAppointmentType, String newAppointmentID, short newAppointmentType) {
+        try{
+            return CentralServer.getInstance().SwapAppointment(Type.CityType.values()[cityType].toString(), patientID,
+                    oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public boolean AddAppointment(short cityType, String appointmentID, short appointmentType, short capacity) {
         try{
             return CentralServer.getInstance().addAppointment(Type.CityType.values()[cityType],

@@ -57,6 +57,12 @@ public class CentralServer {
         return GetCityOpr(cityType).GetAppointmentSchedule(userID);
     }
 
+    public short SwapAppointment(String cityType, String patientID, String oldAppointmentID,
+                                 short oldAppointmentType, String newAppointmentID, short newAppointmentType)
+    {
+        return GetCityOpr(Type.CityType.valueOf(cityType)).SwapAppointment(patientID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
+    }
+
     public HashMap<String, Type.AppointmentType> GetAppointmentSchedule(Type.CityType city, String userID) throws NotBoundException, RemoteException {
         String rawRes = GetCityOpr(city).GetAppointmentSchedule(userID);
         return Type.UnmarshallingAppointmentsAndType(rawRes);

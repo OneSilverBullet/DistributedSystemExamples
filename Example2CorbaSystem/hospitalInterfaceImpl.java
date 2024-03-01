@@ -102,4 +102,13 @@ public class hospitalInterfaceImpl extends hospitalInterfacePOA {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public short SwapAppointment(String patientID, String oldAppointmentID, short oldAppointmentType, String newAppointmentID, short newAppointmentType) {
+        try{
+            return HospitalServer.getInstance().SwapAppointment(patientID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
