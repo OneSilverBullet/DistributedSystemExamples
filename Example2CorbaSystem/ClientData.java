@@ -38,7 +38,6 @@ public class ClientData {
 
     private ClientData() {
         String[] initArgs = {"-ORBInitialPort", corbaPort, "-ORBInitialHost", corbaHost};
-        // TODO Auto-generated method stub
         try {
             ORB orb = ORB.init(initArgs, null);
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
@@ -129,10 +128,7 @@ public class ClientData {
 
     public String[] ViewBookedAppointments() throws RemoteException, InterruptedException, NotBoundException {
         String rawRes = centralPlatform.GetAppointmentSchedule((short)cityType.ordinal(), userID);
-
-        HashMap<String, Type.AppointmentType> res = new HashMap<String, Type.AppointmentType>();
-        //todo: unmarshalling
-
+        HashMap<String, Type.AppointmentType> res = Type.UnmarshallingAppointmentsAndType(rawRes);
 
         String[] ret = new String[res.size()];
         int index = 0;
@@ -174,11 +170,9 @@ public class ClientData {
     }
 
     public String[] ViewAvailableAppointments() throws RemoteException, InterruptedException, NotBoundException {
-        String rawValiableRes = centralPlatform.ListAppointmentAvailability((short)cityType.ordinal(), (short)(Type.AppointmentType.PHYSICIAN.ordinal()));
-
-        HashMap<String, Integer> valiableRes = new HashMap<String, Integer>();
-        //todo: unmarshalling the data
-
+        String rawValiableRes = centralPlatform.ListAppointmentAvailability((short)cityType.ordinal(), (short)(Type.AppointmentType.PHYS.ordinal()));
+        System.out.println("rawValiableRes:" + rawValiableRes);
+        HashMap<String, Integer> valiableRes = Type.UnmarshallingHashMapForListAvailableAppointments(rawValiableRes);
 
         String[] ret = new String[valiableRes.size()];
         int index = 0;

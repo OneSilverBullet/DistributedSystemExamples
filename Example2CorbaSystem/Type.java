@@ -1,11 +1,22 @@
+import hospitalObj.hospitalInterface;
+import hospitalObj.hospitalInterfaceHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.CosNaming.NamingContextPackage.CannotProceed;
+import org.omg.CosNaming.NamingContextPackage.InvalidName;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Type {
 
     public enum AppointmentType {
-        PHYSICIAN,
-        SURGEON,
-        DENTAL,
+        PHYS,
+        SURG,
+        DENT,
     }
 
     public enum CityType
@@ -36,6 +47,124 @@ public class Type {
             res = res + "0";
         }
         res += input;
+        return res;
+    }
+
+    public static String MarshallingHashMap(HashMap<String, Integer> v){
+        int a = v.size();
+        String ret = Type.AlignStr(String.valueOf(a), 4);
+        for(String item : v.keySet()){
+            Integer value = v.get(item);
+            String valueAlStr = Type.AlignStr(String.valueOf(value.intValue()), 4);
+            ret += item + valueAlStr;
+        }
+        return ret;
+    }
+
+    public static HashMap<String, Integer> UnmarshallingHashMapForListAvailableAppointments(String originStr){
+        System.out.println(originStr);
+        int startIndex = 0;
+        String dentalNumStr = originStr.substring(startIndex, startIndex + 4);
+        HashMap<String, Integer> resMap = new HashMap<String, Integer>();
+        startIndex = startIndex + 4;
+        System.out.println("number:" + dentalNumStr + "\n");
+        Integer dentalNum = Integer.valueOf(dentalNumStr);
+        for(int i = 0; i < dentalNum; ++i){
+            String appointmentID = originStr.substring(startIndex, startIndex + 15);
+            System.out.println("appID:" + appointmentID + "\n");
+            startIndex = startIndex + 15;
+            String capacityNum = originStr.substring(startIndex, startIndex + 4);
+            System.out.println("capa:" + capacityNum + "\n");
+            startIndex = startIndex + 4;
+            resMap.put(appointmentID, Integer.valueOf(capacityNum));
+        }
+        return resMap;
+    }
+
+    public static HashMap<String, Integer> UnmarshallingHashMap(String originStr){
+        System.out.println(originStr);
+        int startIndex = 0;
+        String dentalNumStr = originStr.substring(startIndex, startIndex + 4);
+        HashMap<String, Integer> resMap = new HashMap<String, Integer>();
+        startIndex = startIndex + 4;
+        System.out.println("number:" + dentalNumStr + "\n");
+        Integer dentalNum = Integer.valueOf(dentalNumStr);
+        for(int i = 0; i < dentalNum; ++i){
+            String appointmentID = originStr.substring(startIndex, startIndex + 10);
+            System.out.println("appID:" + appointmentID + "\n");
+            startIndex = startIndex + 10;
+            String capacityNum = originStr.substring(startIndex, startIndex + 4);
+            System.out.println("capa:" + capacityNum + "\n");
+            startIndex = startIndex + 4;
+            resMap.put(appointmentID, Integer.valueOf(capacityNum));
+        }
+        return resMap;
+    }
+
+    public static String MarshallingHashMap(ConcurrentHashMap<String, Integer> v){
+        int a = v.size();
+        String ret = Type.AlignStr(String.valueOf(a), 4);
+        for(String item : v.keySet()){
+            Integer value = v.get(item);
+            String valueAlStr = Type.AlignStr(String.valueOf(value.intValue()), 4);
+            ret += item + valueAlStr;
+        }
+        return ret;
+    }
+
+    public static ConcurrentHashMap<String, Integer> UnmarshallingConcurrentHashMap(String originStr){
+        System.out.println(originStr);
+        int startIndex = 0;
+        String dentalNumStr = originStr.substring(startIndex, startIndex + 4);
+        ConcurrentHashMap<String, Integer> resMap = new ConcurrentHashMap<String, Integer>();
+        startIndex = startIndex + 4;
+        System.out.println("number:" + dentalNumStr + "\n");
+        Integer dentalNum = Integer.valueOf(dentalNumStr);
+        for(int i = 0; i < dentalNum; ++i){
+            String appointmentID = originStr.substring(startIndex, startIndex + 10);
+            System.out.println("appID:" + appointmentID + "\n");
+            startIndex = startIndex + 10;
+            String capacityNum = originStr.substring(startIndex, startIndex + 4);
+            System.out.println("capa:" + capacityNum + "\n");
+            startIndex = startIndex + 4;
+            resMap.put(appointmentID, Integer.valueOf(capacityNum));
+        }
+        return resMap;
+    }
+
+
+
+
+
+
+    public static String MarshallingAppointmentsAndType(HashMap<String, Type.AppointmentType> v){
+        int a = v.size();
+        String ret = Type.AlignStr(String.valueOf(a), 4);
+        for(String item : v.keySet()){
+            Type.AppointmentType value = v.get(item);
+            String valueAlStr = Type.AlignStr(String.valueOf(value.ordinal()), 1);
+            ret += item + valueAlStr;
+        }
+        return ret;
+    }
+
+    public static HashMap<String, Type.AppointmentType> UnmarshallingAppointmentsAndType(String originStr){
+        System.out.println(originStr);
+        HashMap<String, Type.AppointmentType> res = new HashMap<>();
+        int startIndex = 0;
+        String dentalNumStr = originStr.substring(startIndex, startIndex + 4);
+        startIndex = startIndex + 4;
+        System.out.println("number:" + dentalNumStr + "\n");
+        Integer dentalNum = Integer.valueOf(dentalNumStr);
+        for(int i = 0; i < dentalNum; ++i){
+            String appointmentID = originStr.substring(startIndex, startIndex + 10);
+            System.out.println("appID:" + appointmentID + "\n");
+            startIndex = startIndex + 10;
+            String appointmentType = originStr.substring(startIndex, startIndex + 1);
+            System.out.println("capa:" + appointmentType + "\n");
+            startIndex = startIndex + 1;
+            res.put(appointmentID, AppointmentType.values()[Integer.valueOf(appointmentType).intValue()]);
+        }
         return res;
     }
 

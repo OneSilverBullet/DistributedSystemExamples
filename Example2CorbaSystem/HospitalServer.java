@@ -13,7 +13,14 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
-
+import hospitalObj.hospitalInterface;
+import hospitalObj.hospitalInterfaceHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.CosNaming.NamingContextPackage.CannotProceed;
+import org.omg.CosNaming.NamingContextPackage.InvalidName;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 public class HospitalServer {
     public class LogSystem
@@ -48,8 +55,11 @@ public class HospitalServer {
     private ConcurrentHashMap<String, String> registedUser = new ConcurrentHashMap<String, String>();
     private Lock lock = new ReentrantLock();
 
-    private ConcurrentHashMap<Type.CityType, AdminObject> cityAdminsOperations = new ConcurrentHashMap<Type.CityType, AdminObject>();
-    private ConcurrentHashMap<Type.CityType, PatientObject> cityPatientsOperations = new ConcurrentHashMap<Type.CityType, PatientObject>();
+
+    private ConcurrentHashMap<Type.CityType, hospitalInterface> cityHospitalInterface = new ConcurrentHashMap<>();
+
+    //private ConcurrentHashMap<Type.CityType, AdminObject> cityAdminsOperations = new ConcurrentHashMap<Type.CityType, AdminObject>();
+    //private ConcurrentHashMap<Type.CityType, PatientObject> cityPatientsOperations = new ConcurrentHashMap<Type.CityType, PatientObject>();
 
     private boolean isInitializeServerConnection = false;
 
@@ -62,9 +72,9 @@ public class HospitalServer {
     }
 
     private HospitalServer() throws NotBoundException, RemoteException {
-        serverData.put(Type.AppointmentType.DENTAL, new ConcurrentHashMap<String, Integer>());
-        serverData.put(Type.AppointmentType.PHYSICIAN, new ConcurrentHashMap<String, Integer>());
-        serverData.put(Type.AppointmentType.SURGEON, new ConcurrentHashMap<String, Integer>());
+        serverData.put(Type.AppointmentType.DENT, new ConcurrentHashMap<String, Integer>());
+        serverData.put(Type.AppointmentType.PHYS, new ConcurrentHashMap<String, Integer>());
+        serverData.put(Type.AppointmentType.SURG, new ConcurrentHashMap<String, Integer>());
         InitializeServerConnection();
         try{
             InitializeFileSystem(HospitalServer.cityType);
@@ -74,33 +84,43 @@ public class HospitalServer {
         }
     }
 
+    private hospitalInterface GainHospitalInterface(String portStr, String localStr, String name) throws InvalidName, CannotProceed, NotFound, org.omg.CORBA.ORBPackage.InvalidName {
+        //String[] initArgs = {"-ORBInitialPort", "1055", "-ORBInitialHost", "localhost"};
+        String[] initArgs = {"-ORBInitialPort", portStr, "-ORBInitialHost", localStr};
+        ORB orb = ORB.init(initArgs, null);
+        org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+        NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+        hospitalInterface hospitalobj = (hospitalInterface) hospitalInterfaceHelper.narrow(ncRef.resolve_str(name));
+        return hospitalobj;
+    }
+
     public boolean InitializeServerConnection() throws RemoteException, NotBoundException {
         if(isInitializeServerConnection) return true;
         System.out.println("InitializeServerConnection");
         isInitializeServerConnection = true;
-        String adminObjectName = "AdminObject";
-        String patientObjectName = "PatientObject";
-        //lookup the registry montreal
-        Registry registryMTL = LocateRegistry.getRegistry(1099);
-        AdminObject adminStubMtl = (AdminObject) registryMTL.lookup("rmi://localhost:1099/" + adminObjectName);
-        PatientObject patientStubMtl = (PatientObject) registryMTL.lookup("rmi://localhost:1099/" + patientObjectName);
 
-        //lookup the registry quebec
-        Registry registryQUE = LocateRegistry.getRegistry(1100);
-        AdminObject adminStubQue = (AdminObject) registryQUE.lookup("rmi://localhost:1100/" + adminObjectName);
-        PatientObject patientStubQue = (PatientObject) registryQUE.lookup("rmi://localhost:1100/" + patientObjectName);
+        String portMtl = "1055";
+        String portQue = "1055";
+        String portShe = "1055";
+        String hostStr = "localhost";
 
-        //lookup the registry she
-        Registry registrySHE = LocateRegistry.getRegistry(1101);
-        AdminObject adminStubShe = (AdminObject) registrySHE.lookup("rmi://localhost:1101/" + adminObjectName);
-        PatientObject patientStubShe = (PatientObject) registrySHE.lookup("rmi://localhost:1101/" + patientObjectName);
-
-        cityAdminsOperations.put(Type.CityType.MTL, adminStubMtl);
-        cityAdminsOperations.put(Type.CityType.QUE, adminStubQue);
-        cityAdminsOperations.put(Type.CityType.SHE, adminStubShe);
-        cityPatientsOperations.put(Type.CityType.MTL, patientStubMtl);
-        cityPatientsOperations.put(Type.CityType.QUE, patientStubQue);
-        cityPatientsOperations.put(Type.CityType.SHE, patientStubShe);
+        try{
+            hospitalInterface interfaceMtl = GainHospitalInterface(portMtl, hostStr, "HospitalServerMTL");
+            hospitalInterface interfaceQue = GainHospitalInterface(portQue, hostStr, "HospitalServerQUE");
+            hospitalInterface interfaceShe = GainHospitalInterface(portShe, hostStr, "HospitalServerSHE");
+            cityHospitalInterface.put(Type.CityType.MTL, interfaceMtl);
+            cityHospitalInterface.put(Type.CityType.QUE, interfaceQue);
+            cityHospitalInterface.put(Type.CityType.SHE, interfaceShe);
+        }
+        catch (InvalidName e) {
+            throw new RuntimeException(e);
+        } catch (org.omg.CORBA.ORBPackage.InvalidName e) {
+            throw new RuntimeException(e);
+        } catch (CannotProceed e) {
+            throw new RuntimeException(e);
+        } catch (NotFound e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }
 
@@ -175,16 +195,6 @@ public class HospitalServer {
         return true;
     }
 
-    private String MarshallingHashMap(HashMap<String, Integer> v){
-        int a = v.size();
-        String ret = Type.AlignStr(String.valueOf(a), 4);
-        for(String item : v.keySet()){
-            Integer value = v.get(item);
-            String valueAlStr = Type.AlignStr(String.valueOf(value.intValue()), 4);
-            ret += item + valueAlStr;
-        }
-        return ret;
-    }
 
     public HashMap<String, Integer> ListAppointmentAvailabilityLocal(Type.AppointmentType type){
         HashMap<String, Integer> resObject = new HashMap<String, Integer>();
@@ -199,12 +209,12 @@ public class HospitalServer {
     }
 
     public String MarshallingAppointmentAvaliableLocal(){
-        HashMap<String, Integer> dentalApps = ListAppointmentAvailabilityLocal(Type.AppointmentType.DENTAL);
-        String dentalPlatStr = MarshallingHashMap(dentalApps);
-        HashMap<String, Integer> surgeonApps = ListAppointmentAvailabilityLocal(Type.AppointmentType.SURGEON);
-        String surPlatStr = MarshallingHashMap(surgeonApps);
-        HashMap<String, Integer> physicalApps = ListAppointmentAvailabilityLocal(Type.AppointmentType.PHYSICIAN);
-        String phyPlatStr = MarshallingHashMap(physicalApps);
+        HashMap<String, Integer> dentalApps = ListAppointmentAvailabilityLocal(Type.AppointmentType.DENT);
+        String dentalPlatStr = Type.MarshallingHashMap(dentalApps);
+        HashMap<String, Integer> surgeonApps = ListAppointmentAvailabilityLocal(Type.AppointmentType.SURG);
+        String surPlatStr = Type.MarshallingHashMap(surgeonApps);
+        HashMap<String, Integer> physicalApps = ListAppointmentAvailabilityLocal(Type.AppointmentType.PHYS);
+        String phyPlatStr = Type.MarshallingHashMap(physicalApps);
         return dentalPlatStr + surPlatStr + phyPlatStr;
     }
 
@@ -253,9 +263,9 @@ public class HospitalServer {
                 String responseStr = new String(reply.getData());
                 int startIndex = 0;
 
-                startIndex = Unmarshalling(responseStr, startIndex, Type.AppointmentType.DENTAL);
-                startIndex = Unmarshalling(responseStr, startIndex, Type.AppointmentType.SURGEON);
-                startIndex = Unmarshalling(responseStr, startIndex, Type.AppointmentType.PHYSICIAN);
+                startIndex = Unmarshalling(responseStr, startIndex, Type.AppointmentType.DENT);
+                startIndex = Unmarshalling(responseStr, startIndex, Type.AppointmentType.SURG);
+                startIndex = Unmarshalling(responseStr, startIndex, Type.AppointmentType.PHYS);
 
             } catch (RemoteException | SocketException e) {
                 throw new RuntimeException(e);
@@ -270,7 +280,6 @@ public class HospitalServer {
         }
     }
 
-
     public ConcurrentHashMap<String, Integer> ListAppointmentAvailability(Type.AppointmentType type)
     {
         ConcurrentHashMap<String, Integer> resObject = new ConcurrentHashMap<String, Integer>();
@@ -281,9 +290,9 @@ public class HospitalServer {
             //multi thread
             int numofHospitals = 3;
             ConcurrentHashMap<Type.AppointmentType, ConcurrentHashMap<String, Integer>> totalRecord = new ConcurrentHashMap<Type.AppointmentType, ConcurrentHashMap<String, Integer>>();
-            totalRecord.put(Type.AppointmentType.DENTAL, new ConcurrentHashMap<String, Integer>());
-            totalRecord.put(Type.AppointmentType.PHYSICIAN, new ConcurrentHashMap<String, Integer>());
-            totalRecord.put(Type.AppointmentType.SURGEON, new ConcurrentHashMap<String, Integer>());
+            totalRecord.put(Type.AppointmentType.DENT, new ConcurrentHashMap<String, Integer>());
+            totalRecord.put(Type.AppointmentType.PHYS, new ConcurrentHashMap<String, Integer>());
+            totalRecord.put(Type.AppointmentType.SURG, new ConcurrentHashMap<String, Integer>());
             Thread[] threads = new Thread[numofHospitals];
 
             System.out.println("first build up threads");
@@ -382,7 +391,7 @@ public class HospitalServer {
             }
             else
             {
-                boolean res = cityPatientsOperations.get(entity.city).bookAppointment(patientID, appointmentID, type);
+                boolean res = cityHospitalInterface.get(entity.city).BookAppointment(patientID, appointmentID, (short)type.ordinal());
                 System.out.println("Book Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " patient:" + patientID  + " Res:"+String.valueOf(res));
                 logSystem.WriteStr("Book Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " patient:" + patientID  + " Res:"+String.valueOf(res));
                 return res;
@@ -425,7 +434,7 @@ public class HospitalServer {
                 logSystem.WriteStr("Cancel Appointment:" + appointmentID + " patient:" + patientID  + " Res:true");
             }
             else{ //call other city
-                boolean res = cityPatientsOperations.get(entity.city).cancelAppointment(patientID, appointmentID);
+                boolean res = cityHospitalInterface.get(entity.city).CancelAppointment(patientID, appointmentID);
                 logSystem.WriteStr("Remote Process Cancel Appointment:" + appointmentID + " patient:" + patientID  + " Res:" + String.valueOf(res));
             }
         } catch (IOException | NotBoundException e) {
@@ -462,10 +471,14 @@ public class HospitalServer {
             }
             lock.lock();
             //User Multiple RMI methods
+            String rawLocalMtl = cityHospitalInterface.get(Type.CityType.MTL).GetAppointmentScheduleLocal(patientID);
+            String rawLocalQue = cityHospitalInterface.get(Type.CityType.QUE).GetAppointmentScheduleLocal(patientID);
+            String rawLocalShe = cityHospitalInterface.get(Type.CityType.SHE).GetAppointmentScheduleLocal(patientID);
 
-            HashMap<String, Type.AppointmentType> resObjectLocalMtl = cityPatientsOperations.get(Type.CityType.MTL).getAppointmentScheduleLocal(patientID);
-            HashMap<String, Type.AppointmentType> resObjectLocalQue = cityPatientsOperations.get(Type.CityType.QUE).getAppointmentScheduleLocal(patientID);
-            HashMap<String, Type.AppointmentType> resObjectLocalShe = cityPatientsOperations.get(Type.CityType.SHE).getAppointmentScheduleLocal(patientID);
+
+            HashMap<String, Type.AppointmentType> resObjectLocalMtl = Type.UnmarshallingAppointmentsAndType(rawLocalMtl);
+            HashMap<String, Type.AppointmentType> resObjectLocalQue = Type.UnmarshallingAppointmentsAndType(rawLocalQue);
+            HashMap<String, Type.AppointmentType> resObjectLocalShe = Type.UnmarshallingAppointmentsAndType(rawLocalShe);
 
             for(String key : resObjectLocalMtl.keySet())
             {

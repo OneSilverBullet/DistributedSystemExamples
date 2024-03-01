@@ -373,9 +373,9 @@ public class UserInterface extends JFrame{
             cmb5.addItem("30");
             JLabel label7 = new JLabel("Input Appointment Type:");
             JComboBox cmb6=new JComboBox();
-            cmb6.addItem("PHYSICIAN");
-            cmb6.addItem("SURGEON");
-            cmb6.addItem("DENTAL");
+            cmb6.addItem("PHYS");
+            cmb6.addItem("SURG");
+            cmb6.addItem("DENT");
 
 
 
@@ -583,9 +583,9 @@ public class UserInterface extends JFrame{
             cmb5.addItem("30");
             JLabel label7 = new JLabel("Input Appointment Type:");
             JComboBox cmb6=new JComboBox();
-            cmb6.addItem("PHYSICIAN");
-            cmb6.addItem("SURGEON");
-            cmb6.addItem("DENTAL");
+            cmb6.addItem("PHYS");
+            cmb6.addItem("SURG");
+            cmb6.addItem("DENT");
             JLabel label8 = new JLabel("Input the Capacity:");
             TextField textCapacity = new TextField();
 
@@ -667,9 +667,9 @@ public class UserInterface extends JFrame{
             JTextField txtfield1=new JTextField();
             JLabel label7 = new JLabel("Input Appointment Type:");
             JComboBox cmb6=new JComboBox();
-            cmb6.addItem("PHYSICIAN");
-            cmb6.addItem("SURGEON");
-            cmb6.addItem("DENTAL");
+            cmb6.addItem("PHYS");
+            cmb6.addItem("SURG");
+            cmb6.addItem("DENT");
 
             JButton btnSubmit = new JButton("Submit");
             btnSubmit.addActionListener(new ActionListener() {
