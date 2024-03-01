@@ -54,11 +54,16 @@ public class HospitalServer {
     public AtomicInteger userIndex = new AtomicInteger();
     private ConcurrentHashMap<String, String> registedUser = new ConcurrentHashMap<String, String>();
     private ConcurrentHashMap<Type.CityType, Integer> hospitalUDPPorts = new ConcurrentHashMap<>();
-    private Lock lock = new ReentrantLock();
 
     private ConcurrentHashMap<Type.CityType, hospitalInterface> cityHospitalInterface = new ConcurrentHashMap<>();
 
     private boolean isInitializeServerConnection = false;
+
+    //to make sure the correctness of concurrency
+    private Lock readwritelock = new ReentrantLock();
+    private Lock swapLock = new ReentrantLock(); //make sure the swap operation is an atomic operation
+
+
 
     //Server is a singleton
     public static HospitalServer getInstance() throws NotBoundException, RemoteException {
@@ -159,7 +164,7 @@ public class HospitalServer {
             if(!isInitializeServerConnection){
                 InitializeServerConnection();
             }
-            lock.lock();
+            readwritelock.lock();
             if(serverData.get(type).containsKey(appointmentID))
                 return false;
             HospitalServer.getInstance().serverData.get(type).put(appointmentID, capacity);
@@ -170,7 +175,7 @@ public class HospitalServer {
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         } finally {
-            lock.unlock();
+            readwritelock.unlock();
         }
         return true;
     }
@@ -180,7 +185,7 @@ public class HospitalServer {
             if(!isInitializeServerConnection){
                 InitializeServerConnection();
             }
-            lock.lock();
+            readwritelock.lock();
             HospitalServer.getInstance().serverData.get(type).remove(appointmentID);
             //todo:redirect the appointment
 
@@ -192,11 +197,10 @@ public class HospitalServer {
         } catch (NotBoundException e) {
             throw new RuntimeException(e);
         } finally {
-            lock.unlock();
+            readwritelock.unlock();
         }
         return true;
     }
-
 
     public HashMap<String, Integer> ListAppointmentAvailabilityLocal(Type.AppointmentType type){
         HashMap<String, Integer> resObject = new HashMap<String, Integer>();
@@ -345,7 +349,7 @@ public class HospitalServer {
             if(!isInitializeServerConnection){
                 InitializeServerConnection();
             }
-            lock.lock();
+            readwritelock.lock();
             Type.UserEntity userEnt = new Type.UserEntity();
             userEnt.DeserializeUser(patientID);
 
@@ -400,7 +404,7 @@ public class HospitalServer {
             throw new RuntimeException(e);
         } finally
         {
-            lock.unlock();
+            readwritelock.unlock();
         }
         return true;
     }
@@ -414,7 +418,7 @@ public class HospitalServer {
             }
             Type.AppointmentEntity entity = new Type.AppointmentEntity();
             entity.DeserializeAppointmentEntity(appointmentID);
-            lock.lock();
+            readwritelock.lock();
             if(entity.city == this.cityType){
                 //there is no such record
                 if(!(bookingRecord.containsKey(patientID) && bookingRecord.get(patientID).containsKey(appointmentID)))
@@ -441,7 +445,7 @@ public class HospitalServer {
             throw new RuntimeException(e);
         } finally
         {
-            lock.unlock();
+            readwritelock.unlock();
         }
         return true;
     }
@@ -463,13 +467,14 @@ public class HospitalServer {
 
         return resObject;
     }
+
     public HashMap<String, Type.AppointmentType> GetAppointmentSchedule(String patientID){
         HashMap<String, Type.AppointmentType> resObject = new HashMap<String, Type.AppointmentType>();
         try{
             if(!isInitializeServerConnection){
                 InitializeServerConnection();
             }
-            lock.lock();
+            readwritelock.lock();
             //User Multiple RMI methods
             String rawLocalMtl = cityHospitalInterface.get(Type.CityType.MTL).GetAppointmentScheduleLocal(patientID);
             String rawLocalQue = cityHospitalInterface.get(Type.CityType.QUE).GetAppointmentScheduleLocal(patientID);
@@ -506,7 +511,7 @@ public class HospitalServer {
         } catch (IOException | NotBoundException e) {
             throw new RuntimeException(e);
         } finally {
-            lock.unlock();
+            readwritelock.unlock();
         }
         return resObject;
     }
@@ -567,6 +572,22 @@ public class HospitalServer {
         return OperationUDP(cityType, "2", infor);
     }
 
+    class AppointmentAvaQuery implements Runnable {
+        private Type.CityType type;
+        private String appointmentID;
+        private short appTyp;
+        public boolean res = false;
+        // constructor
+        public AppointmentAvaQuery(Type.CityType type_, String appointmentID, short appointmentType) {
+            this.type = type_;
+            this.appointmentID = appointmentID;
+            this.appTyp = appointmentType;
+        }
+        public void run() {
+            res = CheckAppointmentAvailableUDP(this.type, this.appointmentID, this.appTyp);
+        }
+    }
+
     private boolean CheckAppointmentExistUDP(Type.CityType cityType, String patientID, String appointmentID, short appointmentType){
         String infor = patientID + appointmentID + Type.AlignStr(String.valueOf(appointmentType), 4);
         boolean res = OperationUDP(cityType, "3", infor);
@@ -574,9 +595,45 @@ public class HospitalServer {
         return res;
     }
 
+    class AppointmentExistQuery implements Runnable {
+        private Type.CityType type;
+        private String patientID;
+        private String appointmentID;
+        private short appTyp;
+        public boolean res = false;
+        // constructor
+        public AppointmentExistQuery(Type.CityType type_, String patientID, String appointmentID, short appointmentType) {
+            this.type = type_;
+            this.patientID = patientID;
+            this.appointmentID = appointmentID;
+            this.appTyp = appointmentType;
+        }
+        public void run() {
+            res = CheckAppointmentExistUDP(this.type, this.patientID, this.appointmentID, this.appTyp);
+        }
+    }
+
     private boolean BookAppointmentUDP(Type.CityType cityType, String patientID, String appointmentID, Type.AppointmentType appType){
         String info = patientID + appointmentID + Type.AlignStr(String.valueOf(appType), 4);
         return OperationUDP(cityType, "4", info);
+    }
+
+    class AppointmentBookQuery implements Runnable {
+        private Type.CityType type;
+        private String patientID;
+        private String appointmentID;
+        private Type.AppointmentType appTyp;
+        public boolean res = false;
+        // constructor
+        public AppointmentBookQuery(Type.CityType type_, String patientID, String appointmentID, Type.AppointmentType appType) {
+            this.type = type_;
+            this.patientID = patientID;
+            this.appointmentID = appointmentID;
+            this.appTyp = appType;
+        }
+        public void run() {
+            res = BookAppointmentUDP(this.type, this.patientID, this.appointmentID, this.appTyp);
+        }
     }
 
     public boolean BookAppointmentUDPProcess(String receiveStr){
@@ -596,6 +653,23 @@ public class HospitalServer {
         return OperationUDP(type, "5", info);
     }
 
+    class AppointmentCancelQuery implements Runnable {
+        private Type.CityType type;
+        private String patientID;
+        private String appointmentID;
+        private Type.AppointmentType appTyp;
+        public boolean res = false;
+        // constructor
+        public AppointmentCancelQuery(Type.CityType type_, String patientID, String appointmentID) {
+            this.type = type_;
+            this.patientID = patientID;
+            this.appointmentID = appointmentID;
+        }
+        public void run() {
+            res = CancelAppointmentUDP(this.type, this.patientID, this.appointmentID);
+        }
+    }
+
     public boolean CancelAppointmentUDPProcess(String receiveStr)
     {
         int startIndex = 1;
@@ -609,28 +683,57 @@ public class HospitalServer {
     public short SwapAppointment(String patientID, String oldAppointmentID,
                                  short oldAppointmentType, String newAppointmentID, short newAppointmentType)
     {
-        Type.AppointmentEntity oldAppEntity = new Type.AppointmentEntity();
-        oldAppEntity.DeserializeAppointmentEntity(oldAppointmentID);
-        Type.AppointmentEntity newAppEntity = new Type.AppointmentEntity();
-        newAppEntity.DeserializeAppointmentEntity(newAppointmentID);
+        try{
+            swapLock.lock();
 
-        Type.CityType oldCity = oldAppEntity.city;
-        Type.CityType newCity = newAppEntity.city;
+            Type.AppointmentEntity oldAppEntity = new Type.AppointmentEntity();
+            oldAppEntity.DeserializeAppointmentEntity(oldAppointmentID);
+            Type.AppointmentEntity newAppEntity = new Type.AppointmentEntity();
+            newAppEntity.DeserializeAppointmentEntity(newAppointmentID);
 
-        //todo: multi-threading?
-        boolean CheckAppointmentExistRes = CheckAppointmentExistUDP(oldCity, patientID, oldAppointmentID, oldAppointmentType);
-        if(!CheckAppointmentExistRes)
-            return 1; //the old appointment is not exist
-        boolean CheckAppointmentAvaiRes = CheckAppointmentAvailableUDP(oldCity, oldAppointmentID, oldAppointmentType);
-        if(!CheckAppointmentAvaiRes)
-            return 2; //the new appointment is not exist
+            Type.CityType oldCity = oldAppEntity.city;
+            Type.CityType newCity = newAppEntity.city;
 
-        boolean CancelAppointmentOp = CancelAppointmentUDP(oldCity, patientID, oldAppointmentID);
-        boolean AddNewAppointmentOp = BookAppointmentUDP(newCity, patientID, newAppointmentID, Type.AppointmentType.values()[newAppointmentType]);
-        if(!(CancelAppointmentOp && AddNewAppointmentOp))
-            return 3; //the swap operation is failed
 
-        return 0;
+            AppointmentAvaQuery avaQObj = new AppointmentAvaQuery(newCity, newAppointmentID, newAppointmentType);
+            AppointmentExistQuery existQObj = new AppointmentExistQuery(oldCity, patientID, oldAppointmentID, oldAppointmentType);
+            AppointmentBookQuery bookQObj = new AppointmentBookQuery(newCity, patientID, newAppointmentID, Type.AppointmentType.values()[newAppointmentType]);
+            AppointmentCancelQuery cancelQObj = new AppointmentCancelQuery(oldCity, patientID, oldAppointmentID);
+
+            Thread[] threads = new Thread[4];
+            threads[0] = new Thread(avaQObj);
+            threads[1] = new Thread(existQObj);
+            threads[2] = new Thread(bookQObj);
+            threads[3] = new Thread(cancelQObj);
+
+            threads[0].start();
+            threads[1].start();
+            threads[0].join();
+            threads[1].join();
+
+            boolean CheckAppointmentExistRes = existQObj.res;
+            if(!CheckAppointmentExistRes)
+                return 1; //the old appointment is not exist
+            boolean CheckAppointmentAvaiRes = avaQObj.res;
+            if(!CheckAppointmentAvaiRes)
+                return 2; //the new appointment is not exist
+
+            threads[2].start();
+            threads[3].start();
+            threads[2].join();
+            threads[3].join();
+
+
+            boolean CancelAppointmentOp = cancelQObj.res;
+            boolean AddNewAppointmentOp = bookQObj.res;
+            if(!(CancelAppointmentOp && AddNewAppointmentOp))
+                return 3; //the swap operation is failed
+
+            return 0;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            swapLock.unlock();
+        }
     }
-
 }
