@@ -1,6 +1,8 @@
 package com.example.webservice;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Type {
@@ -10,6 +12,32 @@ public class Type {
         SURG,
         DENT,
     }
+
+    static public String ExchangeAppointTypeCompatibility(AppointmentType type){
+        if(type == AppointmentType.PHYS) return "Physician";
+        else if(type == AppointmentType.SURG) return "Surgeon";
+        else if(type == AppointmentType.DENT) return "Dental";
+        return "Physician"; //default value
+    }
+
+    static public AppointmentType ExchangeStringCompatibility(String val){
+        if(val.equals("Physician")) return AppointmentType.PHYS;
+        else if(val.equals("Surgeon")) return AppointmentType.SURG;
+        else if(val.equals("Dental")) return AppointmentType.DENT;
+        return AppointmentType.PHYS; //default value
+    }
+
+    public static short GetAppTypeIndex(AppointmentType type){
+        if(type == AppointmentType.PHYS) return 0;
+        else if(type == AppointmentType.SURG) return 1;
+        else return 2;
+    }
+
+    public static short GetAppTypeIndex(String appType){
+        AppointmentType type = AppointmentType.valueOf(appType);
+        return GetAppTypeIndex(type);
+    }
+
 
     public enum CityType
     {
@@ -51,6 +79,10 @@ public class Type {
             ret += item + valueAlStr;
         }
         return ret;
+    }
+
+    public static String MarshallingHashMapCompatibility(HashMap<String, Integer> v){
+        return v.toString();
     }
 
     public static HashMap<String, Integer> UnmarshallingHashMapForListAvailableAppointments(String originStr){
@@ -104,6 +136,10 @@ public class Type {
         return ret;
     }
 
+    public static String MarshallingHashMapCompatibility(ConcurrentHashMap<String, Integer> v){
+        return v.toString();
+    }
+
     public static ConcurrentHashMap<String, Integer> UnmarshallingConcurrentHashMap(String originStr){
         System.out.println(originStr);
         int startIndex = 0;
@@ -124,9 +160,16 @@ public class Type {
         return resMap;
     }
 
-
-
-
+    public static String MarshallingAppointmentsAndTypeCompatibility(String userID, HashMap<String, Type.AppointmentType> v){
+        List<String> reslist = new ArrayList<>();
+        for(String item : v.keySet()){
+            Type.AppointmentType value = v.get(item);
+            String tmp = "";
+            tmp = userID + " " + item + " " + String.valueOf(value);
+            reslist.add(tmp);
+        }
+        return reslist.toString();
+    }
 
 
     public static String MarshallingAppointmentsAndType(HashMap<String, Type.AppointmentType> v){

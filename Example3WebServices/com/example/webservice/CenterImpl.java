@@ -1,5 +1,8 @@
 package com.example.webservice;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import java.rmi.NotBoundException;
@@ -12,6 +15,72 @@ public class CenterImpl implements Center {
         return "Hello, " + name + "!";
     }
 
+    //compatibility interface: return the constants results to the front end
+    @Override
+    public String addAppointment(String appointmentID, String appointmentType, int capacity) {
+        try{
+            return CentralServer.getInstance().addAppointment(appointmentID, appointmentType, capacity);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String removeAppointment(String appointmentID, String appointmentType) {
+        try{
+            return CentralServer.getInstance().removeAppointment(appointmentID, appointmentType);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String listAppointmentAvailability(String appointmentType) {
+        try{
+            return CentralServer.getInstance().listAppointmentAvailability(appointmentType);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String bookAppointment(String patientID, String appointmentID, String appointmentType) {
+        try{
+            return CentralServer.getInstance().bookAppointment(patientID, appointmentID, appointmentType);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String getAppointmentSchedule(String patientID) {
+        try{
+            return CentralServer.getInstance().getAppointmentSchedule(patientID);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String cancelAppointment(String patientID, String appointmentID) {
+        try{
+            return CentralServer.getInstance().cancelAppointment(patientID, appointmentID);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String swapAppointment(String patientID, String oldAppointmentID, String oldAppointmentType, String newAppointmentID, String newAppointmentType) {
+        try{
+            return CentralServer.getInstance().swapAppointment(patientID,
+                    oldAppointmentID, patientID, newAppointmentID, newAppointmentType);
+        } catch (NotBoundException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //origin interface
     @Override
     public String RegisterUser(short cityType, short userType) {
         try{
@@ -27,79 +96,6 @@ public class CenterImpl implements Center {
         try{
             System.out.println("invocation in center interfalce impl:CheckUser");
             return CentralServer.getInstance().CheckUser(Type.CityType.values()[city], userID);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean BookAppointment(short city, String userID, String appointmentID, short appointmentType) {
-        try{
-            return CentralServer.getInstance().BookAppointment(Type.CityType.values()[city], userID, appointmentID,
-                    Type.AppointmentType.values()[appointmentType]);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean CancelAppointment(short city, String userID, String appointmentID) {
-        try{
-            return CentralServer.getInstance().CancelAppointment(Type.CityType.values()[city],
-                    userID, appointmentID);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public String GetAppointmentSchedule(short city, String userID) {
-        try{
-            return CentralServer.getInstance().GetAppointmentScheduleMarshalling(Type.CityType.values()[city],
-                    userID);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public short SwapAppointment(short CityType, String patientID, String oldAppointmentID, short oldAppointmentType, String newAppointmentID, short newAppointmentType) {
-        try{
-            return CentralServer.getInstance().SwapAppointment(Type.CityType.values()[CityType].toString(), patientID,
-                    oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean AddAppointment(short cityType, String appointmentID, short appointmentType, short capacity) {
-        try{
-            return CentralServer.getInstance().addAppointment(Type.CityType.values()[cityType],
-                    appointmentID,
-                    Type.AppointmentType.values()[appointmentType],
-                    capacity);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean RemoveAppointment(short cityType, String appointmentID, short appointmentType) {
-        try{
-            return CentralServer.getInstance().RemoveAppointment(Type.CityType.values()[cityType],
-                    appointmentID,
-                    Type.AppointmentType.values()[appointmentType]);
-        } catch (NotBoundException | RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public String ListAppointmentAvailability(short cityType, short appointmentType) {
-        try{
-            return CentralServer.getInstance().ListAppointmentAvailabilityMarshalling(Type.CityType.values()[cityType],
-                    Type.AppointmentType.values()[appointmentType]);
         } catch (NotBoundException | RemoteException e) {
             throw new RuntimeException(e);
         }

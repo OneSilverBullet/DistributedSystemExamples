@@ -419,12 +419,8 @@ public class UserInterface extends JFrame{
                     String year = cmb5.getSelectedItem().toString();
                     String appointT = cmb6.getSelectedItem().toString();
                     try {
-                        if(ClientData.getInstance().BookAppointment(userID, city, time, date, month, year, appointT)){
-                            labelInfor.setText("Booking Completed!");
-                        }
-                        else{
-                            labelInfor.setText("There is no available appointment in this time");
-                        }
+                        String res = ClientData.getInstance().BookAppointment(userID, city, time, date, month, year, appointT);
+                        labelInfor.setText(res);
                     } catch (NotBoundException ex) {
                         throw new RuntimeException(ex);
                     } catch (RemoteException ex) {
@@ -513,19 +509,8 @@ public class UserInterface extends JFrame{
                     String newAppointmentID = txtfield3.getText();
                     String newAppointmentType = cmb4.getSelectedItem().toString();
                     try {
-                        short resSwapAppointment = ClientData.getInstance().SwapAppointment(cityType, userID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
-                        if(resSwapAppointment == 0){
-                            labelInfor.setText("Swap Appointment Completed!");
-                        }
-                        else if(resSwapAppointment == 1){
-                            labelInfor.setText("There is no such old appointment");
-                        }
-                        else if(resSwapAppointment == 2){
-                            labelInfor.setText("There is no such available new appointment");
-                        }
-                        else if(resSwapAppointment == 3){
-                            labelInfor.setText("There is some error in operation");
-                        }
+                        String res = ClientData.getInstance().SwapAppointment(cityType, userID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
+                        labelInfor.setText(res);
                     } catch (NotBoundException ex) {
                         throw new RuntimeException(ex);
                     } catch (RemoteException ex) {
@@ -588,12 +573,8 @@ public class UserInterface extends JFrame{
                 public void actionPerformed(ActionEvent e) {
                     String appointmentID = txtfield1.getText();
                     try {
-                        if(ClientData.getInstance().CancelAppointment(appointmentID)){
-                            labelInfor.setText("Cancel Completed!");
-                        }
-                        else{
-                            labelInfor.setText("There is no such appointment");
-                        }
+                        String res = ClientData.getInstance().CancelAppointment(appointmentID);
+                        labelInfor.setText(res);
                     } catch (NotBoundException ex) {
                         throw new RuntimeException(ex);
                     } catch (RemoteException ex) {
@@ -727,12 +708,8 @@ public class UserInterface extends JFrame{
                     String appointT = cmb6.getSelectedItem().toString();
                     int capacity = Integer.parseInt(textCapacity.getText());
                     try {
-                        if(ClientData.getInstance().AddAppointment(city, time, date, month, year, appointT, capacity)){
-                            labelInfor.setText("Add Appointment Completed!");
-                        }
-                        else{
-                            labelInfor.setText("Add Appointment Failed!");
-                        }
+                        String res = ClientData.getInstance().AddAppointment(city, time, date, month, year, appointT, capacity);
+                        labelInfor.setText(res);
                     } catch (NotBoundException ex) {
                         throw new RuntimeException(ex);
                     } catch (RemoteException ex) {
@@ -802,12 +779,8 @@ public class UserInterface extends JFrame{
                 public void actionPerformed(ActionEvent e) {
                     String appointmentID = txtfield1.getText();
                     try {
-                        if(ClientData.getInstance().RemoveAppointment(appointmentID, Objects.requireNonNull(cmb6.getSelectedItem()).toString())){
-                            labelInfor.setText("Remove Completed!");
-                        }
-                        else{
-                            labelInfor.setText("There is no such appointment");
-                        }
+                        String res = ClientData.getInstance().RemoveAppointment(appointmentID, Objects.requireNonNull(cmb6.getSelectedItem()).toString());
+                        labelInfor.setText(res);
                     } catch (NotBoundException ex) {
                         throw new RuntimeException(ex);
                     } catch (RemoteException ex) {

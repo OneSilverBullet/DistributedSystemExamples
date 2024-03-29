@@ -28,30 +28,7 @@ import java.net.URL;
 
 
 public class HospitalServer {
-    public class LogSystem
-    {
-        public String fileName = "";
-        void WriteStr(String v) throws IOException{
-            try{
-                Calendar cal = Calendar.getInstance();
-                int date = cal.get(Calendar.DATE);
-                int month = cal.get(Calendar.MONTH);
-                int year = cal.get(Calendar.YEAR);
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                int minute = cal.get(Calendar.MINUTE);
-                String currentTime = String.valueOf(hour) + ":" + String.valueOf(minute) + " " +  String.valueOf(date) + "." + String.valueOf(month) + "." + String.valueOf(year);
-
-                BufferedWriter out = new BufferedWriter(new FileWriter(fileName,true));
-                out.write(v + " operation time:" + currentTime + " \n");
-                out.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     static public Type.CityType cityType;
-    public LogSystem logSystem = new LogSystem();
     public ConcurrentHashMap<Type.AppointmentType, ConcurrentHashMap<String, Integer>> serverData = new ConcurrentHashMap<Type.AppointmentType, ConcurrentHashMap<String, Integer>>();
     //UserID appointment record
     public ConcurrentHashMap<String, ConcurrentHashMap<String, Type.AppointmentType>> bookingRecord = new ConcurrentHashMap<String, ConcurrentHashMap<String, Type.AppointmentType>>();
@@ -130,8 +107,6 @@ public class HospitalServer {
 
     public boolean InitializeFileSystem(Type.CityType cityType_) throws IOException {
         this.cityType = cityType_;
-        String logFileName = "Server"+ cityType.toString()+".txt";
-        logSystem.fileName = logFileName;
         return true;
     }
     public String RegisterUser(Type.CityType city, Type.UserType userType) throws NotBoundException, RemoteException {
@@ -166,7 +141,6 @@ public class HospitalServer {
                 return false;
             HospitalServer.getInstance().serverData.get(type).put(appointmentID, capacity);
             System.out.println("Add Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " Capacity:" + String.valueOf(capacity));
-            logSystem.WriteStr("Add Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " Capacity:" + String.valueOf(capacity) + " Result:true");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {
@@ -187,7 +161,6 @@ public class HospitalServer {
             //todo:redirect the appointment
 
             System.out.println("Remove Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString());
-            logSystem.WriteStr("Remove Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString()  + " Result:true");
         }
         catch (IOException e){
             throw new RuntimeException(e);
@@ -314,17 +287,14 @@ public class HospitalServer {
                 t.join();
             }
 
-
-
-            System.out.println("List Availiable Appointment Type:" + type.toString());
-            logSystem.WriteStr("List Availiable Appointment Type:" + type.toString()  + " Res:true");
+            //System.out.println("List Availiable Appointment Type:" + type.toString());
+            System.out.println("listres:" + totalRecord.toString());
             for(Type.AppointmentType typeKey : totalRecord.keySet())
             {
                 ConcurrentHashMap<String, Integer> value = totalRecord.get(typeKey);
                 for(String itemKey : value.keySet()){
                     Integer capacity = value.get(itemKey);
                     resObject.put(typeKey.toString() + ":" + itemKey, capacity);
-                    logSystem.WriteStr("Appointment:" + typeKey.toString() + ":" + itemKey + "  Capacity:" + value.toString());
                 }
             }
         } catch (IOException e) {
@@ -339,7 +309,9 @@ public class HospitalServer {
         return resObject;
     }
 
-    public boolean BookAppointment(String patientID, String appointmentID, Type.AppointmentType type){
+
+    //return value: 0 Success 1 APPOINTMENT_NOT_EXIST 2 HAVE_SAME_TYPE_APPOINTMENT_SAME_DAY 3 THREE_APPOINTMENTS_OTHER_CITIES 4 NO_CAPACITY
+    public short BookAppointment(String patientID, String appointmentID, Type.AppointmentType type){
         //there is no such open appointment
         try
         {
@@ -355,22 +327,21 @@ public class HospitalServer {
 
             if(entity.city == this.cityType){
                 if(!serverData.get(type).containsKey(appointmentID))
-                    return false;
+                    return 1;
 
                 int prev =  serverData.get(type).get(appointmentID).intValue();
                 int appointmentSpace = prev;
 
-
                 //there is no free space
                 if(appointmentSpace <= 0)
-                    return false;
+                    return 4;
 
                 if(!bookingRecord.containsKey(patientID))
                     bookingRecord.put(patientID, new ConcurrentHashMap<String, Type.AppointmentType>());
                 else{
                     //duplicated record
                     if(bookingRecord.get(patientID).containsKey(appointmentID))
-                        return false;
+                        return 2;
 
                     //should not go other cities for three times
                     int bookedTimes = 0;
@@ -379,7 +350,7 @@ public class HospitalServer {
                         entity1.DeserializeAppointmentEntity(key);
                         if(entity1.city != userEnt.city) bookedTimes = bookedTimes + 1;
                     }
-                    if(bookedTimes > 3) return false;
+                    if(bookedTimes > 3) return 3;
                 }
 
                 bookingRecord.get(patientID).put(appointmentID, type);
@@ -388,14 +359,11 @@ public class HospitalServer {
                 serverData.get(type).remove(appointmentID);
                 serverData.get(type).put(appointmentID, new Integer(appointmentSpace));
                 System.out.println("Book Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " patient:" + patientID);
-                logSystem.WriteStr("Book Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " patient:" + patientID  + " Res:true");
             }
             else
             {
-                boolean res = cityHospitalInterface.get(entity.city).BookAppointment(patientID, appointmentID, (short)type.ordinal());
+                short res = cityHospitalInterface.get(entity.city).BookAppointment(patientID, appointmentID, (short)type.ordinal());
                 System.out.println("Book Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " patient:" + patientID  + " Res:"+String.valueOf(res));
-                logSystem.WriteStr("Book Appointment:" + appointmentID + " Appointment Type:" + type.toString() + " patient:" + patientID  + " Res:"+String.valueOf(res));
-                return res;
             }
         } catch (IOException | NotBoundException e) {
             throw new RuntimeException(e);
@@ -403,7 +371,7 @@ public class HospitalServer {
         {
             readwritelock.unlock();
         }
-        return true;
+        return 0;
     }
 
     public boolean CancelAppointment(String patientID, String appointmentID)
@@ -432,11 +400,11 @@ public class HospitalServer {
                 bookingRecord.get(patientID).remove(appointmentID);
 
                 System.out.println("Cancel Appointment:" + appointmentID + " patient:" + patientID);
-                logSystem.WriteStr("Cancel Appointment:" + appointmentID + " patient:" + patientID  + " Res:true");
+                return true;
             }
             else{ //call other city
                 boolean res = cityHospitalInterface.get(entity.city).CancelAppointment(patientID, appointmentID);
-                logSystem.WriteStr("Remote Process Cancel Appointment:" + appointmentID + " patient:" + patientID  + " Res:" + String.valueOf(res));
+                return res;
             }
         } catch (IOException | NotBoundException e) {
             throw new RuntimeException(e);
@@ -444,7 +412,6 @@ public class HospitalServer {
         {
             readwritelock.unlock();
         }
-        return true;
     }
     public HashMap<String, Type.AppointmentType> GetAppointmentScheduleLocal(String patientID){
 
@@ -498,12 +465,9 @@ public class HospitalServer {
                 resObject.put(key, value);
             }
             System.out.println("Get Appointment Schedule of patient:" + patientID);
-            logSystem.WriteStr("Get Appointment Schedule of patient:" + patientID  + " Res:true");
             for(String key : resObject.keySet())
             {
                 Type.AppointmentType value = resObject.get(key);
-                //current appoint has been full
-                logSystem.WriteStr("Appointment ID:" + key  + " Appointment Type:" + value.toString());
             }
         } catch (IOException | NotBoundException e) {
             throw new RuntimeException(e);
@@ -633,7 +597,7 @@ public class HospitalServer {
         }
     }
 
-    public boolean BookAppointmentUDPProcess(String receiveStr){
+    public short BookAppointmentUDPProcess(String receiveStr){
         int startIndex = 1;
         String patientID = receiveStr.substring(startIndex, startIndex + 8);
         startIndex += 8;
@@ -677,6 +641,7 @@ public class HospitalServer {
         return CancelAppointment(patientID, appointmentID);
     }
 
+    //0 SUCCESS 1 APPOINTMENT_NOT_EXIST 2 NO_CAPACITY
     public short SwapAppointment(String patientID, String oldAppointmentID,
                                  short oldAppointmentType, String newAppointmentID, short newAppointmentType)
     {

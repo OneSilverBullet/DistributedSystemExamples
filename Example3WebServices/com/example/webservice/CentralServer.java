@@ -9,12 +9,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import java.net.URL;
+import javax.jws.WebMethod;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 public class CentralServer {
     private static CentralServer instance = null;
-    private Lock lock = new ReentrantLock();
     private ConcurrentHashMap<Type.CityType, Integer> hospitalServerList = new ConcurrentHashMap<Type.CityType, Integer>();
     private ConcurrentHashMap<Type.CityType, Hospital> cityOperations = new ConcurrentHashMap<Type.CityType, Hospital>();
 
@@ -36,44 +36,44 @@ public class CentralServer {
         return GetCityOpr(city).CheckUser(userID);
     }
 
-    public boolean BookAppointment(Type.CityType city, String userid_, String appointmentID, Type.AppointmentType type) throws NotBoundException, RemoteException {
-        return GetCityOpr(city).BookAppointment(userid_, appointmentID, (short)type.ordinal());
+    public String addAppointment(String appointmentID, String appointmentType, int capacity){
+        Type.AppointmentEntity appInstance = new Type.AppointmentEntity();
+        appInstance.DeserializeAppointmentEntity(appointmentID);
+        return GetCityOpr(appInstance.city).addAppointment(appointmentID, appointmentType, capacity);
     }
 
-    public boolean CancelAppointment(Type.CityType city, String userID, String apID) throws NotBoundException, RemoteException {
-        return GetCityOpr(city).CancelAppointment(userID, apID);
+    public String removeAppointment(String appointmentID, String appointmentType){
+        Type.AppointmentEntity appInstance = new Type.AppointmentEntity();
+        appInstance.DeserializeAppointmentEntity(appointmentID);
+        return GetCityOpr(appInstance.city).removeAppointment(appointmentID, appointmentType);
     }
 
-    public String GetAppointmentScheduleMarshalling(Type.CityType cityType, String userID){
-        return GetCityOpr(cityType).GetAppointmentSchedule(userID);
+    public String listAppointmentAvailability (String appointmentType){
+        return GetCityOpr(Type.CityType.MTL).listAppointmentAvailability(appointmentType);
     }
 
-    public short SwapAppointment(String cityType, String patientID, String oldAppointmentID,
-                                 short oldAppointmentType, String newAppointmentID, short newAppointmentType)
-    {
-        return GetCityOpr(Type.CityType.valueOf(cityType)).SwapAppointment(patientID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
+    public String bookAppointment(String patientID, String appointmentID, String appointmentType){
+        Type.UserEntity userInstance = new Type.UserEntity();
+        userInstance.DeserializeUser(patientID);
+        return GetCityOpr(userInstance.city).bookAppointment(patientID, appointmentID, appointmentType);
     }
 
-    public HashMap<String, Type.AppointmentType> GetAppointmentSchedule(Type.CityType city, String userID) throws NotBoundException, RemoteException {
-        String rawRes = GetCityOpr(city).GetAppointmentSchedule(userID);
-        return Type.UnmarshallingAppointmentsAndType(rawRes);
+    public String getAppointmentSchedule(String patientID){
+        Type.UserEntity userInstance = new Type.UserEntity();
+        userInstance.DeserializeUser(patientID);
+        return GetCityOpr(userInstance.city).getAppointmentSchedule(patientID);
     }
 
-    public boolean addAppointment(Type.CityType city, String appointmentID, Type.AppointmentType type, int capacity) throws NotBoundException, RemoteException {
-        return GetCityOpr(city).AddAppointment(appointmentID, (short)type.ordinal(), (short)capacity);
+    public String cancelAppointment(String patientID, String appointmentID){
+        Type.UserEntity userInstance = new Type.UserEntity();
+        userInstance.DeserializeUser(patientID);
+        return GetCityOpr(userInstance.city).removeAppointment(patientID, appointmentID);
     }
 
-    public boolean RemoveAppointment(Type.CityType city, String appointmentID, Type.AppointmentType type) throws NotBoundException, RemoteException {
-        return GetCityOpr(city).RemoveAppointment(appointmentID, (short)type.ordinal());
-    }
-
-    public String ListAppointmentAvailabilityMarshalling(Type.CityType city, Type.AppointmentType type) throws NotBoundException, RemoteException {
-        return GetCityOpr(city).ListAppointmentAvailability((short)type.ordinal());
-    }
-
-    ConcurrentHashMap<String, Integer> ListAppointmentAvailability(Type.CityType city, Type.AppointmentType type) throws NotBoundException, RemoteException {
-        String rawRes = GetCityOpr(city).ListAppointmentAvailability((short)type.ordinal());
-        return Type.UnmarshallingConcurrentHashMap(rawRes);
+    public String swapAppointment(String patientID, String oldAppointmentID, String oldAppointmentType, String newAppointmentID, String newAppointmentType){
+        Type.UserEntity userInstance = new Type.UserEntity();
+        userInstance.DeserializeUser(patientID);
+        return GetCityOpr(userInstance.city).swapAppointment(patientID, oldAppointmentID, oldAppointmentType, newAppointmentID, newAppointmentType);
     }
 
     public void Initialize()  {
@@ -105,7 +105,7 @@ public class CentralServer {
         }
     }
 
-    private CentralServer() throws NotBoundException, RemoteException {
+    private CentralServer() {
         Initialize();
     }
 

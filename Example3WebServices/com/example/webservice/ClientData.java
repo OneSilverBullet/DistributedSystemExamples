@@ -101,9 +101,10 @@ public class ClientData {
         return centralPlatform.CheckUser((short)userEntity1.city.ordinal(), userID);
     }
 
-    public boolean BookAppointment(String userid_, String city_, String time_, String date_, String month_, String year_, String type_) throws RemoteException, NotBoundException {
+    public String BookAppointment(String userid_, String city_, String time_, String date_, String month_, String year_, String type_) throws RemoteException, NotBoundException {
         String appointmentID = city_ + time_ + date_ + month_ + year_;
-        boolean res = centralPlatform.BookAppointment((short)cityType.ordinal(), userid_, appointmentID, (short)Type.AppointmentType.valueOf(type_).ordinal());
+        String exchangedAvailableAppointments = Type.ExchangeAppointTypeCompatibility(Type.AppointmentType.valueOf(type_));
+        String res = centralPlatform.bookAppointment(userid_, appointmentID, exchangedAvailableAppointments);
         try{
             clientLog.WriteStr("Book Appointment Operation ID:" + appointmentID + " appointment Type:" + type_ + " Res:" + String.valueOf(res));
         }
@@ -113,15 +114,16 @@ public class ClientData {
         return res;
     }
 
-    public short SwapAppointment(String cityType, String patientID, String oldAppointmentID, String oldAppointmentType, String newAppointmentID, String newAppointmentType)
+    public String SwapAppointment(String cityType, String patientID, String oldAppointmentID, String oldAppointmentType, String newAppointmentID, String newAppointmentType)
     {
-
-        return centralPlatform.SwapAppointment((short)Type.CityType.valueOf(cityType).ordinal(), patientID, oldAppointmentID, (short)Type.AppointmentType.valueOf(oldAppointmentType).ordinal(),
-                newAppointmentID, (short)Type.AppointmentType.valueOf(newAppointmentType).ordinal());
+        String oldAppType = Type.ExchangeAppointTypeCompatibility(Type.AppointmentType.valueOf(oldAppointmentType));
+        String newAppType = Type.ExchangeAppointTypeCompatibility(Type.AppointmentType.valueOf(newAppointmentType));
+        return centralPlatform.swapAppointment(patientID, oldAppointmentID, oldAppType,
+                newAppointmentID, newAppType);
     }
 
-    public boolean CancelAppointment(String appointmentID) throws RemoteException, NotBoundException {
-        boolean res = centralPlatform.CancelAppointment((short)cityType.ordinal(), userID, appointmentID);
+    public String CancelAppointment(String appointmentID) throws RemoteException, NotBoundException {
+        String res = centralPlatform.cancelAppointment(userID, appointmentID);
         try{
             clientLog.WriteStr("Cancel Appointment Operation ID:" + appointmentID + " Res:" + String.valueOf(res));
         }
@@ -132,8 +134,13 @@ public class ClientData {
     }
 
     public String[] ViewBookedAppointments() throws RemoteException, InterruptedException, NotBoundException {
-        String rawRes = centralPlatform.GetAppointmentSchedule((short)cityType.ordinal(), userID);
-        HashMap<String, Type.AppointmentType> res = Type.UnmarshallingAppointmentsAndType(rawRes);
+        String rawRes = centralPlatform.getAppointmentSchedule(userID);
+        System.out.println("UnmarshallingAppointmentsAndType:" + rawRes);
+        String[] ret = new String[1];
+        ret[0] = rawRes;
+        return ret;
+        /*
+        HashMap<String, Type.AppointmentType> res = Type.UnmarshallingAppointmentsAndType();
 
         String[] ret = new String[res.size()];
         int index = 0;
@@ -149,11 +156,14 @@ public class ClientData {
             throw new RuntimeException(e);
         }
         return ret;
+         */
     }
 
-    public boolean AddAppointment(String city_, String time_, String date_, String month_, String year_, String type_, int capacity) throws RemoteException, NotBoundException {
+    public String AddAppointment(String city_, String time_, String date_, String month_, String year_, String type_, int capacity) throws RemoteException, NotBoundException {
         String appointmentID = city_ + time_ + date_ + month_ + year_;
-        boolean res = centralPlatform.AddAppointment((short)cityType.ordinal(), appointmentID, (short)Type.AppointmentType.valueOf(type_).ordinal(), (short)capacity);
+
+        String exchangedAvailableAppointments = Type.ExchangeAppointTypeCompatibility(Type.AppointmentType.valueOf(type_));
+        String res = centralPlatform.addAppointment(appointmentID, exchangedAvailableAppointments, capacity);
         try{
             clientLog.WriteStr("Add Appointment Operation ID:" + appointmentID + " appointment Type:" + type_ +  " Capacity:" + capacity + "  Res:" + String.valueOf(res));
         }
@@ -163,8 +173,9 @@ public class ClientData {
         return res;
     }
 
-    public boolean RemoveAppointment(String appointmentID, String type_) throws RemoteException, NotBoundException {
-        boolean res = centralPlatform.RemoveAppointment((short)cityType.ordinal(), appointmentID, (short)Type.AppointmentType.valueOf(type_).ordinal());
+    public String RemoveAppointment(String appointmentID, String type_) throws RemoteException, NotBoundException {
+        String exchangedAvailableAppointments = Type.ExchangeAppointTypeCompatibility(Type.AppointmentType.valueOf(type_));
+        String res = centralPlatform.removeAppointment(appointmentID, exchangedAvailableAppointments);
         try{
             clientLog.WriteStr("Remove Appointment Operation ID:" + appointmentID + " appointment Type:" + type_ +  "  Res:" + String.valueOf(res));
         }
@@ -175,24 +186,16 @@ public class ClientData {
     }
 
     public String[] ViewAvailableAppointments() throws RemoteException, InterruptedException, NotBoundException {
-        String rawValiableRes = centralPlatform.ListAppointmentAvailability((short)cityType.ordinal(), (short)(Type.AppointmentType.PHYS.ordinal()));
+        String exchangedAvailableAppointments = Type.ExchangeAppointTypeCompatibility(Type.AppointmentType.PHYS);
+        String rawValiableRes = centralPlatform.listAppointmentAvailability(exchangedAvailableAppointments);
+        rawValiableRes = rawValiableRes.substring(1, rawValiableRes.length()-1);
+        String[] temp1;
+        String delimeter1 = ", ";
+        temp1 = rawValiableRes.split(delimeter1); // 分割字符串
+        for(String x :  temp1){
+            System.out.println(x);
+        }
         System.out.println("rawValiableRes:" + rawValiableRes);
-        HashMap<String, Integer> valiableRes = Type.UnmarshallingHashMapForListAvailableAppointments(rawValiableRes);
-
-        String[] ret = new String[valiableRes.size()];
-        int index = 0;
-        for(String key : valiableRes.keySet()){
-            String value = valiableRes.get(key).toString();
-            ret[index] = "Appointment:" + key + "  Free Capacity:" + value;
-            index++;
-        }
-
-        try{
-            clientLog.WriteStr("View Available Appointments");
-        }
-        catch (IOException e){
-            throw new RuntimeException(e);
-        }
-        return ret;
+        return temp1;
     }
 }
