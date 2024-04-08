@@ -157,10 +157,37 @@ public class HospitalServer {
                 InitializeServerConnection();
             }
             readwritelock.lock();
-            HospitalServer.getInstance().serverData.get(type).remove(appointmentID);
-            //todo:redirect the appointment
 
-            System.out.println("Remove Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString());
+            if(HospitalServer.getInstance().serverData.get(type).containsKey(appointmentID)){
+                HospitalServer.getInstance().serverData.get(type).remove(appointmentID);
+                //redirect the appointment
+
+                for(String patientID : bookingRecord.keySet()){
+
+                    for(String appID : bookingRecord.get(patientID).keySet()){
+                        if(appID == appointmentID){
+                            Type.AppointmentType curType = bookingRecord.get(patientID).
+
+
+                            break;
+                        }
+                    }
+
+
+                }
+
+                    ConcurrentHashMap<String, ConcurrentHashMap<String, Type.AppointmentType>> bookingRecord = new ConcurrentHashMap<String, ConcurrentHashMap<String, Type.AppointmentType>>();
+
+
+
+                return true;
+            }
+            else { //not exist
+                return false;
+            }
+
+
+            //System.out.println("Remove Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString());
         }
         catch (IOException e){
             throw new RuntimeException(e);
@@ -169,7 +196,6 @@ public class HospitalServer {
         } finally {
             readwritelock.unlock();
         }
-        return true;
     }
 
     public HashMap<String, Integer> ListAppointmentAvailabilityLocal(Type.AppointmentType type){

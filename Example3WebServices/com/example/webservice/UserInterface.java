@@ -88,12 +88,15 @@ public class UserInterface extends JFrame{
     public static class StartInterfacePanel extends JPanel {
         public StartInterfacePanel(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            setBounds(150, 100, 300, 400);
+            setBounds(150, 20, 300, 400);
             setLayout(new GridLayout(10, 1));
+
+            JLabel label0 =new JLabel("Distributed Health Care Management System");
             JLabel label1=new JLabel("Input User ID:");
             JTextField txtfield1=new JTextField();
-            txtfield1.setText("Input User ID");
+            txtfield1.setText("User ID");
             JButton loginButton = new JButton("Login");
+
             JLabel labelInfor = new JLabel("");
             loginButton.addActionListener(new ActionListener() {
                 @Override
@@ -108,12 +111,12 @@ public class UserInterface extends JFrame{
                             if(ClientData.getInstance().IsPatient()){
                                 startInterfacePanel.setVisible(!startInterfacePanel.isVisible());
                                 patientPanel.setVisible(!patientPanel.isVisible());
-                                patientPanel.labelUser.setText(ClientData.getInstance().userID);
+                                patientPanel.labelUser.setText("User ID:" + ClientData.getInstance().userID);
                             }
                             else{
                                 startInterfacePanel.setVisible(!startInterfacePanel.isVisible());
                                 adminPanel.setVisible(!adminPanel.isVisible());
-                                adminPanel.labelUser.setText(ClientData.getInstance().userID);
+                                adminPanel.labelUser.setText("User ID:" + ClientData.getInstance().userID);
                             }
                         }
                     } catch (RemoteException ex) {
@@ -123,7 +126,7 @@ public class UserInterface extends JFrame{
                     }
                 }
             });
-            JButton registerButton = new JButton("Create User ID");
+            JButton registerButton = new JButton("Register");
             registerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -132,6 +135,7 @@ public class UserInterface extends JFrame{
                 }
             });
 
+            add(label0);
             add(label1);
             add(txtfield1);
             add(loginButton);
@@ -143,7 +147,7 @@ public class UserInterface extends JFrame{
     public static class CreateUserInterface extends JPanel {
         public CreateUserInterface(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            setBounds(150, 0, 300, 400);
+            setBounds(150, 20, 300, 400);
             setLayout(new GridLayout(10, 1));
 
             JLabel label1=new JLabel("Input User Information:");
@@ -213,7 +217,7 @@ public class UserInterface extends JFrame{
 
 
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            setBounds(150, 0, 300, 400);
+            setBounds(150, 20, 300, 400);
             setLayout(new GridLayout(10, 1));
 
             JButton btnBookAppointment = new JButton(operation1);
@@ -822,15 +826,14 @@ public class UserInterface extends JFrame{
 
 
     public static class ViewAppointmentPanel extends JPanel {
-        JList listInfor=new JList();
+        JList<String> listInfor=new JList<String>();
         public ViewAppointmentPanel(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            setBounds(150, 0, 300, 400);
-            setLayout(new GridLayout(2, 3));
-
+            setBounds(200, 20, 300, 500);
+            //setLayout(new GridLayout(2, 3));
 
             JButton btnBack = new JButton("Back");
-            btnBack.setBounds(0,0,100,100);
+            //btnBack.setBounds(150,100,300,100);
             btnBack.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -850,12 +853,15 @@ public class UserInterface extends JFrame{
                 }
             });
 
-            add(listInfor);
+            JScrollPane s = new JScrollPane(listInfor);
+            s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            s.setBounds(150, 20, 400, 400);
+            add(s);
             add(btnBack);
         }
 
         public void SetData(String[] data){
-            listInfor.setListData(data);    //为列表填充数据
+            listInfor.setListData(data);
         }
     }
 }
