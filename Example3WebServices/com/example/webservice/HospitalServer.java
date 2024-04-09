@@ -160,33 +160,17 @@ public class HospitalServer {
 
             if(HospitalServer.getInstance().serverData.get(type).containsKey(appointmentID)){
                 HospitalServer.getInstance().serverData.get(type).remove(appointmentID);
-                //redirect the appointment
-
-                for(String patientID : bookingRecord.keySet()){
-
-                    for(String appID : bookingRecord.get(patientID).keySet()){
-                        if(appID == appointmentID){
-                            Type.AppointmentType curType = bookingRecord.get(patientID).
-
-
-                            break;
-                        }
+                //just remove related appointments
+                for(String userID : bookingRecord.keySet()){
+                    if(bookingRecord.get(userID).containsKey(appointmentID)){
+                        bookingRecord.get(userID).remove(appointmentID);
                     }
-
-
                 }
-
-                    ConcurrentHashMap<String, ConcurrentHashMap<String, Type.AppointmentType>> bookingRecord = new ConcurrentHashMap<String, ConcurrentHashMap<String, Type.AppointmentType>>();
-
-
-
                 return true;
             }
             else { //not exist
                 return false;
             }
-
-
             //System.out.println("Remove Availiable Appointment:" + appointmentID + " Appointment Type:" + type.toString());
         }
         catch (IOException e){
